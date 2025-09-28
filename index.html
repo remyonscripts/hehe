@@ -42,7 +42,7 @@
     /* Flower + video layout */
     #flowerVideoContainer{
       display:flex;
-      flex-direction:row;             /* side by side */
+      flex-direction:row;
       align-items:center;
       justify-content:center;
       width:100%;
@@ -81,7 +81,7 @@
     </div>
   </div>
 
-  <!-- Page 2 -->
+  <!-- Page 2 (2 buttons only) -->
   <div id="page2" class="page">
     <h1 class="text-3xl font-bold text-gray-700">THESE ARE FOR YOU!</h1>
     <p class="text-xl text-gray-600">I hope you like it mwehe</p>
@@ -89,9 +89,6 @@
     <div class="flex flex-col sm:flex-row items-center justify-center gap-6 pt-4">
       <button id="envelopeBtn" class="w-44 h-48 flex flex-col items-center justify-center p-4 border-2 border-pink-200 rounded-2xl bg-pink-50 transition-all hover:scale-105">
         <img src="2.png" alt="An envelope" class="w-28 h-28 object-contain">
-      </button>
-      <button id="filmBtn" class="w-44 h-48 flex flex-col items-center justify-center p-4 border-2 border-blue-200 rounded-2xl bg-blue-50 transition-all hover:scale-105">
-        <img src="4.png" alt="A film strip" class="w-28 h-28 object-contain">
       </button>
       <button id="flowerBtn" class="w-44 h-48 flex flex-col items-center justify-center p-4 border-2 border-amber-200 rounded-2xl bg-amber-50 transition-all hover:scale-105">
         <img src="5.png" alt="A flower bouquet" class="w-28 h-28 object-contain">
@@ -102,7 +99,6 @@
   <!-- Page 3 (flower + video) -->
   <div id="page3" class="page">
     <div id="flowerVideoContainer">
-      <!-- Flower -->
       <div id="flowerWrapper">
         <div id="tapMe" class="hidden text-center">
           <svg class="w-8 h-8 mx-auto text-gray-500 animate-bounce" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -112,7 +108,6 @@
         </div>
         <img id="flowerImage" src="3.png" alt="A bouquet of sunflowers">
       </div>
-      <!-- Video -->
       <div id="videoWrapper">
         <video id="flowerVideo" controls playsinline>
           <source src="foryou.mp4" type="video/mp4">
@@ -133,18 +128,6 @@
     <button class="backBtn button-style">BACK</button>
   </div>
 
-  <!-- Page 5 -->
-  <div id="page5" class="page">
-    <div class="w-full p-6 bg-blue-200 rounded-lg shadow-inner">
-      <div class="grid grid-cols-3 gap-3">
-        <img src="https://placehold.co/120x140/a2d2ff/ffffff?text=Photo" class="rounded-md" alt="placeholder">
-        <img src="https://placehold.co/120x140/a2d2ff/ffffff?text=Photo" class="rounded-md" alt="placeholder">
-        <img src="https://placehold.co/120x140/a2d2ff/ffffff?text=Photo" class="rounded-md" alt="placeholder">
-      </div>
-    </div>
-    <button class="backBtn button-style">BACK</button>
-  </div>
-
   <!-- Page 6 -->
   <div id="page6" class="page">
     <img src="https://raw.githubusercontent.com/remyonescript/hehe/main/6.png" alt="Crying character" class="w-40 sm:w-56 object-cover rounded-full">
@@ -159,7 +142,6 @@
   const noBtn=document.getElementById('noBtn');
   const tryAgainBtn=document.getElementById('tryAgainBtn');
   const envelopeBtn=document.getElementById('envelopeBtn');
-  const filmBtn=document.getElementById('filmBtn');
   const flowerBtn=document.getElementById('flowerBtn');
   const backBtns=document.querySelectorAll('.backBtn');
 
@@ -186,7 +168,6 @@
   noBtn.onclick=()=>showPage('page6');
   tryAgainBtn.onclick=()=>showPage('page1');
   envelopeBtn.onclick=()=>showPage('page4');
-  filmBtn.onclick=()=>showPage('page5');
 
   flowerBtn.onclick=()=>{
     showPage('page3');
@@ -195,8 +176,8 @@
 
   flowerImage.onclick=()=>{
     tapMe.classList.add('hidden');
-    flowerWrapper.style.maxWidth='50%';     // stay left
-    videoWrapper.style.maxWidth='50%';      // slide in right
+    flowerWrapper.style.maxWidth='50%';
+    videoWrapper.style.maxWidth='50%';
     setTimeout(()=>{
       flowerVideo.currentTime=0;
       flowerVideo.play().catch(()=>{});
