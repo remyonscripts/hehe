@@ -15,7 +15,7 @@
     padding:1rem;
   }
   #app{
-    width:90vw;height:90vh;
+    width:90vw;max-width:1100px;height:90vh;
     border-radius:24px;background:#fff;
     box-shadow:0 10px 30px rgba(0,0,0,0.1);
     position:relative;overflow:hidden;
@@ -31,7 +31,10 @@
   .page.active{opacity:1;visibility:visible;transform:scale(1);}
   .button-style{
     background:#87CEFA;border:2px solid #5bb0e8;color:#fff;
-    font-weight:700;padding:14px 32px;font-size:1.2rem;border-radius:16px;
+    font-weight:700;
+    padding:clamp(0.8rem,2vw,1.5rem) clamp(1.6rem,4vw,3rem);
+    font-size:clamp(1.2rem,2.5vw,1.6rem);
+    border-radius:20px;
     box-shadow:0 4px 6px rgba(0,0,0,0.1);
     cursor:pointer;transition:transform .2s ease,box-shadow .2s ease;
   }
@@ -47,7 +50,7 @@
   #flowerImage:hover{transform:scale(1.05);}
   #flowerVideo{max-width:100%;max-height:65vh;border-radius:16px;}
   #tapMe{margin-bottom:1rem;}
-  #flowerCaption{margin-top:0.75rem;font-size:1rem;color:#666;max-width:80%;}
+  #flowerCaption{margin-top:0.75rem;font-size:clamp(1rem,2vw,1.25rem);color:#555;max-width:80%;}
   @media (orientation: portrait) {
     #flowerVideoContainer {flex-direction: column;}
     #flowerWrapper {max-width:100%;}
@@ -60,10 +63,10 @@
 <div id="app">
   <!-- Page 1 -->
   <div id="page1" class="page active">
-    <img src="1.png" class="max-w-xs">
-    <h1 class="text-3xl font-bold text-gray-700">hi Lil monkeh</h1>
-    <p class="text-xl text-gray-600">I got a gift for you. Would you like to see it?</p>
-    <div class="flex space-x-6">
+    <img src="1.png" class="max-w-xs sm:max-w-sm">
+    <h1 class="text-3xl sm:text-4xl font-bold text-gray-700">hi Lil monkeh</h1>
+    <p class="text-xl sm:text-2xl text-gray-600">I got a gift for you. Would you like to see it?</p>
+    <div class="flex flex-wrap justify-center gap-6">
       <button id="yesBtn" class="button-style">YES PLEASE</button>
       <button id="noBtn" class="button-style">NO THANKS</button>
     </div>
@@ -71,15 +74,15 @@
 
   <!-- Page 2 -->
   <div id="page2" class="page">
-    <h1 class="text-3xl font-bold text-gray-700">THESE ARE FOR YOU!</h1>
-    <p class="text-xl text-gray-600">I hope you like it mwehe</p>
-    <p class="text-lg text-gray-500">choose a button :3</p>
-    <div class="flex flex-col sm:flex-row items-center justify-center gap-6 pt-4">
-      <button id="envelopeBtn" class="w-44 h-48 flex flex-col items-center justify-center p-4 border-2 border-pink-200 rounded-2xl bg-pink-50 transition-all hover:scale-105">
-        <img src="2.png" alt="An envelope" class="w-28 h-28 object-contain">
+    <h1 class="text-3xl sm:text-4xl font-bold text-gray-700">THESE ARE FOR YOU!</h1>
+    <p class="text-xl sm:text-2xl text-gray-600">I hope you like it mwehe</p>
+    <p class="text-lg sm:text-xl text-gray-500">choose a button :3</p>
+    <div class="flex flex-col sm:flex-row items-center justify-center gap-8 pt-4">
+      <button id="envelopeBtn" class="w-48 h-52 sm:w-56 sm:h-60 flex flex-col items-center justify-center p-4 border-2 border-pink-200 rounded-2xl bg-pink-50 transition-all hover:scale-105">
+        <img src="2.png" alt="An envelope" class="w-28 sm:w-32 h-28 sm:h-32 object-contain">
       </button>
-      <button id="flowerBtn" class="w-44 h-48 flex flex-col items-center justify-center p-4 border-2 border-amber-200 rounded-2xl bg-amber-50 transition-all hover:scale-105">
-        <img src="5.png" alt="A flower bouquet" class="w-28 h-28 object-contain">
+      <button id="flowerBtn" class="w-48 h-52 sm:w-56 sm:h-60 flex flex-col items-center justify-center p-4 border-2 border-amber-200 rounded-2xl bg-amber-50 transition-all hover:scale-105">
+        <img src="5.png" alt="A flower bouquet" class="w-28 sm:w-32 h-28 sm:h-32 object-contain">
       </button>
     </div>
   </div>
@@ -89,10 +92,10 @@
     <div id="flowerVideoContainer">
       <div id="flowerWrapper">
         <div id="tapMe" class="hidden text-center">
-          <svg class="w-8 h-8 mx-auto text-gray-500 animate-bounce" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <svg class="w-10 h-10 mx-auto text-gray-500 animate-bounce" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path>
           </svg>
-          <p class="text-lg text-gray-600">tap the flower!</p>
+          <p class="text-xl text-gray-600">tap the flower!</p>
         </div>
         <img id="flowerImage" src="3.png" alt="A bouquet of sunflowers">
         <p id="flowerCaption">
@@ -111,8 +114,8 @@
   <!-- Page 4 -->
   <div id="page4" class="page">
     <h2 class="text-2xl sm:text-3xl font-bold text-gray-700">A Special Message For You</h2>
-    <div id="messageContainer" class="mt-4 text-gray-700 text-xl hidden p-6 bg-yellow-100/50 rounded-lg min-h-[120px] w-full flex items-center justify-center"></div>
-    <div id="messageLoader" class="hidden text-gray-600">
+    <div id="messageContainer" class="mt-4 text-gray-700 text-xl sm:text-2xl hidden p-6 bg-yellow-100/50 rounded-lg min-h-[120px] w-full flex items-center justify-center"></div>
+    <div id="messageLoader" class="hidden text-gray-600 text-lg">
       <p>Thinking of the perfect words...</p>
     </div>
     <button id="generateMessageBtn" class="button-style">✨ Read your message</button>
@@ -121,19 +124,15 @@
 
   <!-- Page 6 -->
   <div id="page6" class="page">
-    <img src="6.png" class="w-40 sm:w-56 object-cover rounded-full">
-    <p class="text-xl text-gray-600">I promise you'll like it</p>
+    <img src="6.png" class="w-44 sm:w-56 object-cover rounded-full" alt="Crying character">
+    <p class="text-xl sm:text-2xl text-gray-600">I promise you'll like it</p>
     <button id="tryAgainBtn" class="button-style">TRY AGAIN</button>
   </div>
 </div>
 
-<!-- Hidden audio elements -->
-<audio id="music1" preload="auto">
-  <source src="music1.mp3" type="audio/mpeg">
-</audio>
-<audio id="music2" preload="auto">
-  <source src="music2.mp3" type="audio/mpeg">
-</audio>
+<!-- Audio -->
+<audio id="music1" preload="auto"><source src="music1.mp3" type="audio/mpeg"></audio>
+<audio id="music2" preload="auto"><source src="music2.mp3" type="audio/mpeg"></audio>
 
 <script>
   const pages=document.querySelectorAll('.page');
@@ -143,37 +142,26 @@
   const envelopeBtn=document.getElementById('envelopeBtn');
   const flowerBtn=document.getElementById('flowerBtn');
   const backBtns=document.querySelectorAll('.backBtn');
-
   const generateMessageBtn=document.getElementById('generateMessageBtn');
   const messageContainer=document.getElementById('messageContainer');
   const messageLoader=document.getElementById('messageLoader');
-
   const flowerImage=document.getElementById('flowerImage');
   const tapMe=document.getElementById('tapMe');
   const flowerWrapper=document.getElementById('flowerWrapper');
   const videoWrapper=document.getElementById('videoWrapper');
   const flowerVideo=document.getElementById('flowerVideo');
 
-  // music
+  // Music
   const music1=document.getElementById('music1');
   const music2=document.getElementById('music2');
-
-  // 🔊 Set volume to 50% for both tracks
-  music1.volume = 0.5;
-  music2.volume = 0.5;
-
-  // Play second track after first ends
-  music1.addEventListener('ended', () => {
-    music2.play().catch(()=>{});
-  });
+  music1.volume=0.5; music2.volume=0.5;
+  music1.addEventListener('ended',()=>music2.play().catch(()=>{}));
 
   function showPage(id){pages.forEach(p=>p.classList.toggle('active',p.id===id));}
-
   function resetFlowerPage(){
     flowerVideo.pause();flowerVideo.currentTime=0;
     flowerWrapper.style.maxWidth='50%';
-    videoWrapper.style.maxWidth='0';
-    videoWrapper.style.maxHeight='0';
+    videoWrapper.style.maxWidth='0';videoWrapper.style.maxHeight='0';
     tapMe.classList.add('hidden');
   }
 
@@ -181,11 +169,9 @@
   noBtn.onclick=()=>showPage('page6');
   tryAgainBtn.onclick=()=>showPage('page1');
 
-  // Letter button → go to page4 and start music
   envelopeBtn.onclick=()=>{
     showPage('page4');
-    music1.currentTime=0;
-    music2.currentTime=0;
+    music1.currentTime=0; music2.currentTime=0;
     music1.play().catch(()=>{});
   };
 
@@ -196,17 +182,23 @@
 
   flowerImage.onclick=()=>{
     tapMe.classList.add('hidden');
-    const portrait = window.matchMedia("(orientation: portrait)").matches;
-    if (portrait) {
-      videoWrapper.style.maxHeight='50%';
-    } else {
-      videoWrapper.style.maxWidth='50%';
-    }
-    setTimeout(()=>{
-      flowerVideo.currentTime=0;
-      flowerVideo.play().catch(()=>{});
-    },500);
+    const portrait=window.matchMedia("(orientation: portrait)").matches;
+    if (portrait) {videoWrapper.style.maxHeight='50%';}
+    else {videoWrapper.style.maxWidth='50%';}
+    setTimeout(()=>{flowerVideo.currentTime=0;flowerVideo.play().catch(()=>{});},500);
   };
+
+  // Pause music during video
+  flowerVideo.addEventListener('play',()=>{
+    if(!music1.paused) music1.pause();
+    if(!music2.paused) music2.pause();
+  });
+  const resumeMusic=()=>{
+    if(!music1.ended) music1.play().catch(()=>{});
+    else if(!music2.ended) music2.play().catch(()=>{});
+  };
+  flowerVideo.addEventListener('pause',resumeMusic);
+  flowerVideo.addEventListener('ended',resumeMusic);
 
   generateMessageBtn.onclick=()=>{
     generateMessageBtn.disabled=true;
