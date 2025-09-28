@@ -26,14 +26,20 @@
         
         /* Main container for the pages */
         #app {
-            width: 100%;
-            height: 100%;
-            max-width: 450px; /* Set a max-width for larger screens */
-            max-height: 800px; /* Set a max-height */
+            width: 90vw;
+            height: 90vh;
+            max-width: 90vw; /* Set a max-width for larger screens */
+            max-height: 90vh; /* Set a max-height */
             position: relative; /* This is crucial for stacking pages on top of each other */
             box-shadow: 0 10px 30px rgba(0,0,0,0.1);
             border-radius: 24px;
             overflow: hidden; /* Clips the content to the rounded corners */
+        }
+ 
+        /* === Scale all content inside #app === */
+        #app * {
+            transform: scale(1.2);       /* 20% bigger overall */
+            transform-origin: center;    /* para nasa gitna ang pag-scale */
         }
 
         /* Styling for each page */
@@ -337,4 +343,5 @@
     </script>
 </body>
 </html>
+
 
