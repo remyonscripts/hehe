@@ -1,78 +1,93 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>A Gift For You</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <link href="https://fonts.googleapis.com/css2?family=Gaegu:wght@400;700&display=swap" rel="stylesheet">
-  <style>
-    html,body{height:100%;margin:0;overflow:hidden;}
-    body{
-      font-family:'Gaegu',cursive;
-      background:#FFF5E4;
-      display:flex;align-items:center;justify-content:center;
-      padding:1rem;
-    }
-    #app{
-      width:90vw;height:90vh;
-      border-radius:24px;background:#fff;
-      box-shadow:0 10px 30px rgba(0,0,0,0.1);
-      position:relative;overflow:hidden;
-    }
-    .page{
-      position:absolute;inset:0;
-      display:flex;flex-direction:column;align-items:center;justify-content:center;
-      text-align:center;padding:2rem;gap:2rem;
-      opacity:0;visibility:hidden;
-      transform:scale(1.05);
-      transition:opacity .4s ease,transform .4s ease;
-    }
-    .page.active{opacity:1;visibility:visible;transform:scale(1);}
-    .button-style{
-      background:#87CEFA;border:2px solid #5bb0e8;color:#fff;
-      font-weight:700;padding:14px 32px;font-size:1.2rem;border-radius:16px;
-      box-shadow:0 4px 6px rgba(0,0,0,0.1);
-      cursor:pointer;transition:transform .2s ease,box-shadow .2s ease;
-    }
-    .button-style:hover{transform:scale(1.1);box-shadow:0 8px 16px rgba(0,0,0,.2);}
-    #noBtn{background:#FFC0CB;border-color:#FF81A7;color:#4A4A4A;}
-    .backBtn{background:#87CEFA;border-color:#5bb0e8;margin-top:auto;margin-bottom:1.5rem;}
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>A Gift For You</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link href="https://fonts.googleapis.com/css2?family=Gaegu:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  html,body{height:100%;margin:0;overflow:hidden;}
+  body{
+    font-family:'Gaegu',cursive;
+    background:#FFF5E4;
+    display:flex;align-items:center;justify-content:center;
+    padding:1rem;
+  }
+  #app{
+    width:90vw;height:90vh;
+    border-radius:24px;background:#fff;
+    box-shadow:0 10px 30px rgba(0,0,0,0.1);
+    position:relative;overflow:hidden;
+  }
+  .page{
+    position:absolute;inset:0;
+    display:flex;flex-direction:column;align-items:center;justify-content:center;
+    text-align:center;padding:2rem;gap:2rem;
+    opacity:0;visibility:hidden;
+    transform:scale(1.05);
+    transition:opacity .4s ease,transform .4s ease;
+  }
+  .page.active{opacity:1;visibility:visible;transform:scale(1);}
+  .button-style{
+    background:#87CEFA;border:2px solid #5bb0e8;color:#fff;
+    font-weight:700;padding:14px 32px;font-size:1.2rem;border-radius:16px;
+    box-shadow:0 4px 6px rgba(0,0,0,0.1);
+    cursor:pointer;transition:transform .2s ease,box-shadow .2s ease;
+  }
+  .button-style:hover{transform:scale(1.1);box-shadow:0 8px 16px rgba(0,0,0,.2);}
+  #noBtn{background:#FFC0CB;border-color:#FF81A7;color:#4A4A4A;}
+  .backBtn{background:#87CEFA;border-color:#5bb0e8;margin-top:auto;margin-bottom:1.5rem;}
 
-    /* Flower + video layout */
-    #flowerVideoContainer{
-      display:flex;
-      flex-direction:row;
-      align-items:center;
-      justify-content:center;
-      width:100%;
-      max-width:90%;
-      gap:2rem;
-      transition:all .7s ease-in-out;
+  /* Default layout: side by side */
+  #flowerVideoContainer{
+    display:flex;
+    flex-direction:row;
+    align-items:center;
+    justify-content:center;
+    width:100%;
+    max-width:90%;
+    gap:2rem;
+    transition:all .7s ease-in-out;
+  }
+  #flowerWrapper,#videoWrapper{
+    transition:all .7s ease-in-out;
+  }
+  #flowerWrapper{
+    flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;
+    max-width:50%;
+  }
+  #videoWrapper{
+    flex:1;display:flex;align-items:center;justify-content:center;
+    max-width:0;max-height:0;overflow:hidden;
+  }
+  #flowerImage{max-width:100%;max-height:55vh;cursor:pointer;transition:transform .3s;}
+  #flowerImage:hover{transform:scale(1.05);}
+  #flowerVideo{max-width:100%;max-height:65vh;border-radius:16px;}
+  #tapMe{margin-bottom:1rem;}
+  #flowerCaption{margin-top:0.75rem;font-size:1rem;color:#666;max-width:80%;}
+
+  /* Portrait mode: stack vertically */
+  @media (orientation: portrait) {
+    #flowerVideoContainer {
+      flex-direction: column;
     }
-    #flowerWrapper,#videoWrapper{
-      transition:all .7s ease-in-out;
+    #flowerWrapper {
+      max-width:100%;
     }
-    #flowerWrapper{
-      flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;
-      max-width:50%;
+    #videoWrapper {
+      max-width:100%;
+      max-height:0;
     }
-    #videoWrapper{
-      flex:1;display:flex;align-items:center;justify-content:center;
-      max-width:0;overflow:hidden;
-    }
-    #flowerImage{max-width:100%;max-height:65vh;cursor:pointer;transition:transform .3s;}
-    #flowerImage:hover{transform:scale(1.05);}
-    #flowerVideo{max-width:100%;max-height:65vh;border-radius:16px;}
-    #tapMe{margin-bottom:1rem;}
-  </style>
+  }
+</style>
 </head>
 <body>
 
 <div id="app">
   <!-- Page 1 -->
   <div id="page1" class="page active">
-    <img src="1.png" alt="Cute character with hearts" class="max-w-xs">
+    <img src="1.png" class="max-w-xs">
     <h1 class="text-3xl font-bold text-gray-700">hi Lil monkeh</h1>
     <p class="text-xl text-gray-600">I got a gift for you. Would you like to see it?</p>
     <div class="flex space-x-6">
@@ -81,7 +96,7 @@
     </div>
   </div>
 
-  <!-- Page 2 (2 buttons only) -->
+  <!-- Page 2 -->
   <div id="page2" class="page">
     <h1 class="text-3xl font-bold text-gray-700">THESE ARE FOR YOU!</h1>
     <p class="text-xl text-gray-600">I hope you like it mwehe</p>
@@ -96,7 +111,7 @@
     </div>
   </div>
 
-  <!-- Page 3 (flower + video) -->
+  <!-- Page 3: Flower + Video -->
   <div id="page3" class="page">
     <div id="flowerVideoContainer">
       <div id="flowerWrapper">
@@ -107,6 +122,10 @@
           <p class="text-lg text-gray-600">tap the flower!</p>
         </div>
         <img id="flowerImage" src="3.png" alt="A bouquet of sunflowers">
+        <!-- 🌻 New caption here -->
+        <p id="flowerCaption">
+          Your favorite hehe. Couldn't get them irl, so I just made one here for you :3
+        </p>
       </div>
       <div id="videoWrapper">
         <video id="flowerVideo" controls playsinline>
@@ -130,7 +149,7 @@
 
   <!-- Page 6 -->
   <div id="page6" class="page">
-    <img src="https://raw.githubusercontent.com/remyonescript/hehe/main/6.png" alt="Crying character" class="w-40 sm:w-56 object-cover rounded-full">
+    <img src="https://raw.githubusercontent.com/remyonescript/hehe/main/6.png" class="w-40 sm:w-56 object-cover rounded-full">
     <p class="text-xl text-gray-600">I promise you'll like it</p>
     <button id="tryAgainBtn" class="button-style">TRY AGAIN</button>
   </div>
@@ -161,6 +180,7 @@
     flowerVideo.pause();flowerVideo.currentTime=0;
     flowerWrapper.style.maxWidth='50%';
     videoWrapper.style.maxWidth='0';
+    videoWrapper.style.maxHeight='0';
     tapMe.classList.add('hidden');
   }
 
@@ -176,8 +196,12 @@
 
   flowerImage.onclick=()=>{
     tapMe.classList.add('hidden');
-    flowerWrapper.style.maxWidth='50%';
-    videoWrapper.style.maxWidth='50%';
+    const portrait = window.matchMedia("(orientation: portrait)").matches;
+    if (portrait) {
+      videoWrapper.style.maxHeight='50%';  // slide downward on phones
+    } else {
+      videoWrapper.style.maxWidth='50%';   // side slide on desktop/landscape
+    }
     setTimeout(()=>{
       flowerVideo.currentTime=0;
       flowerVideo.play().catch(()=>{});
