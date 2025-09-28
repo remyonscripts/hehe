@@ -3,70 +3,174 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>A Gift For You</title>
+<title>To my special monkey</title>
 <script src="https://cdn.tailwindcss.com"></script>
-<link href="https://fonts.googleapis.com/css2?family=Gaegu:wght@400;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Gaegu:wght@400;700&family=Homemade+Apple&display=swap" rel="stylesheet">
 <style>
-  html,body{height:100%;margin:0;overflow:hidden;}
+  html,body{
+    height:100%;
+    margin:0;
+    overflow:hidden;
+  }
   body{
-    font-family:'Gaegu',cursive;
     background:#FFF5E4;
-    display:flex;align-items:center;justify-content:center;
-    padding:1rem;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    font-family:'Gaegu',cursive;
   }
+
+  /* ✅ White container */
   #app{
-    width:90vw;max-width:1100px;height:90vh;
-    border-radius:24px;background:#fff;
+    width:90vw;
+    height:90vh;
+    border-radius:24px;
+    background:#fff;
     box-shadow:0 10px 30px rgba(0,0,0,0.1);
-    position:relative;overflow:hidden;
+    position:relative;
+    overflow:hidden;
+    padding:clamp(1rem,2vw,2rem);
   }
+
+  /* Pages */
   .page{
-    position:absolute;inset:0;
-    display:flex;flex-direction:column;align-items:center;justify-content:center;
-    text-align:center;padding:2rem;gap:2rem;
-    opacity:0;visibility:hidden;
+    position:absolute; inset:0;
+    display:flex; flex-direction:column;
+    align-items:center; justify-content:center;
+    text-align:center; padding:clamp(1rem,2vw,2rem);
+    gap:clamp(1rem,2vw,2rem);
+    opacity:0; visibility:hidden;
     transform:scale(1.05);
     transition:opacity .4s ease,transform .4s ease;
   }
   .page.active{opacity:1;visibility:visible;transform:scale(1);}
-  .button-style{
-    background:#87CEFA;border:2px solid #5bb0e8;color:#fff;
-    font-weight:700;
-    padding:clamp(0.8rem,2vw,1.5rem) clamp(1.6rem,4vw,3rem);
-    font-size:clamp(1.2rem,2.5vw,1.6rem);
-    border-radius:20px;
-    box-shadow:0 4px 6px rgba(0,0,0,0.1);
-    cursor:pointer;transition:transform .2s ease,box-shadow .2s ease;
-  }
-  .button-style:hover{transform:scale(1.1);box-shadow:0 8px 16px rgba(0,0,0,.2);}
-  #noBtn{background:#FFC0CB;border-color:#FF81A7;color:#4A4A4A;}
-  .backBtn{background:#87CEFA;border-color:#5bb0e8;margin-top:auto;margin-bottom:1.5rem;}
 
-  #flowerVideoContainer{display:flex;flex-direction:row;align-items:center;justify-content:center;width:100%;max-width:90%;gap:2rem;transition:all .7s ease-in-out;}
-  #flowerWrapper,#videoWrapper{transition:all .7s ease-in-out;}
-  #flowerWrapper{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;max-width:50%;}
-  #videoWrapper{flex:1;display:flex;align-items:center;justify-content:center;max-width:0;max-height:0;overflow:hidden;}
-  #flowerImage{max-width:100%;max-height:55vh;cursor:pointer;transition:transform .3s;}
+  /* ---------- Responsive sizing ---------- */
+  .page h1,
+  .page h2 {
+    font-size: clamp(1.5rem, 3vw, 2.5rem);
+  }
+  .page p {
+    font-size: clamp(1rem, 2vw, 1.5rem);
+  }
+  #page1 img {
+    max-width: clamp(150px, 40%, 300px);
+    height: auto;
+  }
+
+  /* Buttons */
+  .button-style{
+    background:#87CEFA; border:2px solid #5bb0e8; color:#fff;
+    font-weight:700;
+    padding:clamp(.6rem,1.5vw,1rem) clamp(1.5rem,3vw,2.5rem);
+    font-size:clamp(1rem,2vw,1.5rem);
+    border-radius:16px;
+    box-shadow:0 4px 6px rgba(0,0,0,0.1);
+    cursor:pointer; transition:transform .2s ease,box-shadow .2s ease;
+  }
+  .button-style:hover{transform:scale(1.07);box-shadow:0 8px 16px rgba(0,0,0,.2);}
+  #noBtn{background:#FFC0CB;border-color:#FF81A7;color:#4A4A4A;}
+  .backBtn{background:#87CEFA;border-color:#5bb0e8;}
+
+  /* Flower + video layout */
+  #flowerVideoContainer{
+    display:flex; flex-direction:row; flex-wrap:wrap;
+    align-items:center; justify-content:center;
+    width:100%; height:100%;
+    gap:clamp(1rem,2vw,2rem);
+    transition:all .7s ease-in-out;
+  }
+  #flowerWrapper,#videoWrapper{
+    transition:all .7s ease-in-out;
+    display:flex; flex-direction:column;
+    align-items:center; justify-content:center;
+  }
+  #flowerWrapper{flex:1; max-width:50%;}
+  #videoWrapper{flex:1; max-width:0; overflow:hidden;}
+  #flowerImage{
+    max-width:100%; max-height:60vh;
+    cursor:pointer; transition:transform .3s;
+  }
   #flowerImage:hover{transform:scale(1.05);}
-  #flowerVideo{max-width:100%;max-height:65vh;border-radius:16px;}
-  #tapMe{margin-bottom:1rem;}
-  #flowerCaption{margin-top:0.75rem;font-size:clamp(1rem,2vw,1.25rem);color:#555;max-width:80%;}
-  @media (orientation: portrait) {
-    #flowerVideoContainer {flex-direction: column;}
-    #flowerWrapper {max-width:100%;}
-    #videoWrapper {max-width:100%;max-height:0;}
+  #flowerVideo{max-width:100%; max-height:60vh; border-radius:16px;}
+  #tapMe{margin-bottom:.5rem;}
+  #flowerCaption{
+    margin-top:.5rem;
+    font-size:clamp(.9rem,1.5vw,1.2rem);
+    color:#555;
+  }
+
+  /* Notebook letter */
+  #messageContainer{
+    font-family:'Homemade Apple',cursive;
+    font-size:clamp(1rem,1.8vw,1.4rem);
+    line-height:1.8;
+    white-space:pre-wrap;
+    text-align:left;
+    background:repeating-linear-gradient(
+      #fff,#fff 28px,#d0e7ff 28px,#d0e7ff 29px);
+    padding:clamp(1rem,2vw,1.5rem);
+    border-radius:12px;
+    overflow-y:auto;
+    max-height:70vh;
+    width:100%;
+    opacity:0;
+    transition:opacity 1s ease;
+  }
+  /* Lines fade in */
+  #messageContainer p {
+    opacity:0;
+    transform:translateY(5px);
+    margin:0;
+    animation:fadeLine 0.6s forwards;
+  }
+  @keyframes fadeLine {
+    to {opacity:1; transform:translateY(0);}
+  }
+  /* Handwriting inside line */
+  #messageContainer span {
+    display:inline-block;
+    clip-path: inset(0 100% 0 0);
+    animation:handwriting 3s steps(40,end) forwards;
+  }
+  @keyframes handwriting {
+    from {clip-path: inset(0 100% 0 0);}
+    to   {clip-path: inset(0 0 0 0);}
+  }
+
+  /* ✅ Back button inside container, top-left with hover float */
+  #insideBack {
+    position: absolute;
+    top: 1rem;
+    left: 1rem;
+    display: none;
+  }
+  #insideBack .backBtn {
+    background: #87CEFA;
+    border: 2px solid #5bb0e8;
+    color: #fff;
+    font-weight: 700;
+    padding: 0.5rem 1.2rem;
+    border-radius: 9999px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+  #insideBack .backBtn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 12px rgba(0,0,0,0.15);
   }
 </style>
 </head>
 <body>
-
 <div id="app">
+
   <!-- Page 1 -->
   <div id="page1" class="page active">
-    <img src="1.png" class="max-w-xs sm:max-w-sm">
-    <h1 class="text-3xl sm:text-4xl font-bold text-gray-700">hi Lil monkeh</h1>
-    <p class="text-xl sm:text-2xl text-gray-600">I got a gift for you. Would you like to see it?</p>
-    <div class="flex flex-wrap justify-center gap-6">
+    <img src="1.png" alt="Cute character">
+    <h1 class="font-bold text-gray-700">hi Lil monkeh</h1>
+    <p class="text-gray-600">I got a gift for you. Would you like to see it?</p>
+    <div class="flex space-x-6">
       <button id="yesBtn" class="button-style">YES PLEASE</button>
       <button id="noBtn" class="button-style">NO THANKS</button>
     </div>
@@ -74,33 +178,30 @@
 
   <!-- Page 2 -->
   <div id="page2" class="page">
-    <h1 class="text-3xl sm:text-4xl font-bold text-gray-700">THESE ARE FOR YOU!</h1>
-    <p class="text-xl sm:text-2xl text-gray-600">I hope you like it mwehe</p>
-    <p class="text-lg sm:text-xl text-gray-500">choose a button :3</p>
-    <div class="flex flex-col sm:flex-row items-center justify-center gap-8 pt-4">
-      <button id="envelopeBtn" class="w-48 h-52 sm:w-56 sm:h-60 flex flex-col items-center justify-center p-4 border-2 border-pink-200 rounded-2xl bg-pink-50 transition-all hover:scale-105">
-        <img src="2.png" alt="An envelope" class="w-28 sm:w-32 h-28 sm:h-32 object-contain">
+    <h1 class="font-bold text-gray-700">THESE ARE FOR YOU!</h1>
+    <p class="text-gray-600">I hope you like it mwehe</p>
+    <div class="flex flex-col sm:flex-row items-center justify-center gap-6 pt-4">
+      <button id="envelopeBtn" class="w-44 h-48 flex flex-col items-center justify-center p-4 border-2 border-pink-200 rounded-2xl bg-pink-50 hover:scale-105 transition">
+        <img src="2.png" alt="An envelope" class="w-28 h-28 object-contain">
       </button>
-      <button id="flowerBtn" class="w-48 h-52 sm:w-56 sm:h-60 flex flex-col items-center justify-center p-4 border-2 border-amber-200 rounded-2xl bg-amber-50 transition-all hover:scale-105">
-        <img src="5.png" alt="A flower bouquet" class="w-28 sm:w-32 h-28 sm:h-32 object-contain">
+      <button id="flowerBtn" class="w-44 h-48 flex flex-col items-center justify-center p-4 border-2 border-amber-200 rounded-2xl bg-amber-50 hover:scale-105 transition">
+        <img src="5.png" alt="A flower bouquet" class="w-28 h-28 object-contain">
       </button>
     </div>
   </div>
 
-  <!-- Page 3 -->
+  <!-- Page 3 Flower + Video -->
   <div id="page3" class="page">
     <div id="flowerVideoContainer">
       <div id="flowerWrapper">
         <div id="tapMe" class="hidden text-center">
-          <svg class="w-10 h-10 mx-auto text-gray-500 animate-bounce" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <svg class="w-8 h-8 mx-auto text-gray-500 animate-bounce" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path>
           </svg>
-          <p class="text-xl text-gray-600">tap the flower!</p>
+          <p class="text-lg text-gray-600">tap the flower!</p>
         </div>
         <img id="flowerImage" src="3.png" alt="A bouquet of sunflowers">
-        <p id="flowerCaption">
-          Your favorite hehe. Couldn't get them irl, so I just made one here for you :3
-        </p>
+        <p id="flowerCaption">Your favorite hehe. Couldn't get them irl, so I just made one here for you :3</p>
       </div>
       <div id="videoWrapper">
         <video id="flowerVideo" controls playsinline>
@@ -108,121 +209,127 @@
         </video>
       </div>
     </div>
-    <button class="backBtn button-style">BACK</button>
   </div>
 
-  <!-- Page 4 -->
-  <div id="page4" class="page">
-    <h2 class="text-2xl sm:text-3xl font-bold text-gray-700">A Special Message For You</h2>
-    <div id="messageContainer" class="mt-4 text-gray-700 text-xl sm:text-2xl hidden p-6 bg-yellow-100/50 rounded-lg min-h-[120px] w-full flex items-center justify-center"></div>
-    <div id="messageLoader" class="hidden text-gray-600 text-lg">
-      <p>Thinking of the perfect words...</p>
-    </div>
-    <button id="generateMessageBtn" class="button-style">✨ Read your message</button>
-    <button class="backBtn button-style">BACK</button>
+  <!-- Page 4 Letter -->
+  <div id="page4" class="page flex-col">
+    <h2 class="font-bold text-gray-700">To My Special Monkey</h2>
+    <div id="messageContainer" class="hidden"></div>
+    <button id="generateMessageBtn" class="button-style mt-4">✨ Read your message</button>
   </div>
 
   <!-- Page 6 -->
   <div id="page6" class="page">
-    <img src="6.png" class="w-44 sm:w-56 object-cover rounded-full" alt="Crying character">
-    <p class="text-xl sm:text-2xl text-gray-600">I promise you'll like it</p>
+    <img src="6.png" alt="Crying character" class="w-40 sm:w-56 object-cover rounded-full">
+    <p class="text-gray-600">I promise you'll like it</p>
     <button id="tryAgainBtn" class="button-style">TRY AGAIN</button>
+  </div>
+
+  <!-- ✅ Back button (only for Page 3 + 4) -->
+  <div id="insideBack">
+    <button class="button-style backBtn">BACK</button>
   </div>
 </div>
 
-<!-- Audio -->
-<audio id="music1" preload="auto"><source src="music1.mp3" type="audio/mpeg"></audio>
-<audio id="music2" preload="auto"><source src="music2.mp3" type="audio/mpeg"></audio>
-
 <script>
-  const pages=document.querySelectorAll('.page');
-  const yesBtn=document.getElementById('yesBtn');
-  const noBtn=document.getElementById('noBtn');
-  const tryAgainBtn=document.getElementById('tryAgainBtn');
-  const envelopeBtn=document.getElementById('envelopeBtn');
-  const flowerBtn=document.getElementById('flowerBtn');
-  const backBtns=document.querySelectorAll('.backBtn');
-  const generateMessageBtn=document.getElementById('generateMessageBtn');
-  const messageContainer=document.getElementById('messageContainer');
-  const messageLoader=document.getElementById('messageLoader');
-  const flowerImage=document.getElementById('flowerImage');
-  const tapMe=document.getElementById('tapMe');
-  const flowerWrapper=document.getElementById('flowerWrapper');
-  const videoWrapper=document.getElementById('videoWrapper');
-  const flowerVideo=document.getElementById('flowerVideo');
-
-  // Music
-  const music1=document.getElementById('music1');
-  const music2=document.getElementById('music2');
-  music1.volume=0.5; music2.volume=0.5;
-  music1.addEventListener('ended',()=>music2.play().catch(()=>{}));
-
-  function showPage(id){pages.forEach(p=>p.classList.toggle('active',p.id===id));}
-  function resetFlowerPage(){
-    flowerVideo.pause();flowerVideo.currentTime=0;
-    flowerWrapper.style.maxWidth='50%';
-    videoWrapper.style.maxWidth='0';videoWrapper.style.maxHeight='0';
-    tapMe.classList.add('hidden');
+const pages=document.querySelectorAll('.page');
+function showPage(id){
+  pages.forEach(p=>p.classList.toggle('active',p.id===id));
+  // ✅ Show back button only for page3 & page4
+  if(id==="page3"||id==="page4"){
+    insideBack.style.display="block";
+  } else {
+    insideBack.style.display="none";
   }
+}
 
-  yesBtn.onclick=()=>showPage('page2');
-  noBtn.onclick=()=>showPage('page6');
-  tryAgainBtn.onclick=()=>showPage('page1');
+const yesBtn=document.getElementById('yesBtn'),
+      noBtn=document.getElementById('noBtn'),
+      tryAgainBtn=document.getElementById('tryAgainBtn'),
+      envelopeBtn=document.getElementById('envelopeBtn'),
+      flowerBtn=document.getElementById('flowerBtn'),
+      flowerImage=document.getElementById('flowerImage'),
+      tapMe=document.getElementById('tapMe'),
+      flowerWrapper=document.getElementById('flowerWrapper'),
+      videoWrapper=document.getElementById('videoWrapper'),
+      flowerVideo=document.getElementById('flowerVideo'),
+      generateMessageBtn=document.getElementById('generateMessageBtn'),
+      messageContainer=document.getElementById('messageContainer'),
+      insideBack=document.getElementById('insideBack');
 
-  envelopeBtn.onclick=()=>{
-    showPage('page4');
-    music1.currentTime=0; music2.currentTime=0;
-    music1.play().catch(()=>{});
-  };
+const letter=`Hi lil monkey :3
 
-  flowerBtn.onclick=()=>{
-    showPage('page3');
-    setTimeout(()=>tapMe.classList.remove('hidden'),800);
-  };
+I hope you’re doing well. I know it hasn’t been that long since we last talked, but honestly, I really miss you like really really miss you :( . I just want to start this letter by saying that you don’t need to feel pressured or rushed in any way while reading this. I just wanted to express what I’ve been carrying in my heart, because keeping it all inside would feel unfair to myself and to you.
 
-  flowerImage.onclick=()=>{
-    tapMe.classList.add('hidden');
-    const portrait=window.matchMedia("(orientation: portrait)").matches;
-    if (portrait) {videoWrapper.style.maxHeight='50%';}
-    else {videoWrapper.style.maxWidth='50%';}
-    setTimeout(()=>{flowerVideo.currentTime=0;flowerVideo.play().catch(()=>{});},500);
-  };
+As I’ve told Ate Vee before, you’re the kindest, most responsible, and soft-spoken person I’ve ever met. I really, really love how you’re always so gentle and kind with the people around you, and how you care for them—how you put so much effort into the things and people you value. You’ve always been one of the purest and most genuine people I know, and I’m grateful I’ve had the chance to see that side of you.
 
-  // Pause music during video
-  flowerVideo.addEventListener('play',()=>{
-    if(!music1.paused) music1.pause();
-    if(!music2.paused) music2.pause();
+Whenever I’m with you, I get a little shy—kasi I have the biggest crush on you—but beyond the nerves, I feel safe with you. Everything becomes calm, and it feels like the world slows down. You bring out the inner child in me, and whether we’re talking nonstop or just sitting in silence, I feel like I can truly be myself with you. That kind of comfort is rare, and it means everything to me.
+
+I also want you to know that I fully understand your response when I asked about us. I expected it, and I respect it. You don’t owe me a quick answer, and I don’t want to put any pressure on you. My jokes about being “just friends” or “BFFs” are just me trying to keep things light, but please know they don’t reflect how much I value you. Your peace of mind is my priority. You have your family, your studies, and your life to focus on, and I never want to take away from that.
+
+All I hope for is that we continue to grow closer, to learn more about each other, and to become better versions of ourselves than before. I want you to know that you have me—fully. I promise to be patient, consistent, honest, and understanding, no matter what. More than anything, I just want you to feel assured, safe, heard, and deeply loved, never burdened.`;
+
+const audio1=new Audio('music1.mp3'),
+      audio2=new Audio('music2.mp3');
+audio1.volume=0.5; audio2.volume=0.5;
+audio1.addEventListener('ended',()=>audio2.play());
+
+function resetFlowerPage(){
+  flowerVideo.pause(); flowerVideo.currentTime=0;
+  flowerWrapper.style.maxWidth='50%';
+  videoWrapper.style.maxWidth='0';
+  tapMe.classList.add('hidden');
+}
+
+yesBtn.onclick=()=>showPage('page2');
+noBtn.onclick=()=>showPage('page6');
+tryAgainBtn.onclick=()=>showPage('page1');
+envelopeBtn.onclick=()=>{showPage('page4');};
+flowerBtn.onclick=()=>{showPage('page3'); setTimeout(()=>tapMe.classList.remove('hidden'),800);};
+flowerImage.onclick=()=>{
+  tapMe.classList.add('hidden');
+  flowerWrapper.style.maxWidth='50%';
+  videoWrapper.style.maxWidth='50%';
+  setTimeout(()=>{flowerVideo.currentTime=0; flowerVideo.play().catch(()=>{});},500);
+};
+
+// Smooth message + music sync
+generateMessageBtn.onclick=()=>{
+  generateMessageBtn.classList.add('hidden');
+  messageContainer.classList.remove('hidden');
+  messageContainer.style.opacity="1";
+
+  // split into lines
+  const lines=letter.split("\n");
+  messageContainer.innerHTML="";
+  lines.forEach((line,i)=>{
+    if(line.trim()==="" ){messageContainer.appendChild(document.createElement("br"));return;}
+    const p=document.createElement("p");
+    const span=document.createElement("span");
+    span.textContent=line;
+    p.appendChild(span);
+    p.style.animationDelay=`${i*0.5}s`;
+    span.style.animationDelay=`${(i*0.5)+0.5}s`;
+    messageContainer.appendChild(p);
   });
-  const resumeMusic=()=>{
-    if(!music1.ended) music1.play().catch(()=>{});
-    else if(!music2.ended) music2.play().catch(()=>{});
-  };
-  flowerVideo.addEventListener('pause',resumeMusic);
-  flowerVideo.addEventListener('ended',resumeMusic);
 
-  generateMessageBtn.onclick=()=>{
-    generateMessageBtn.disabled=true;
-    messageLoader.classList.remove('hidden');
-    setTimeout(()=>{
-      messageLoader.classList.add('hidden');
-      messageContainer.textContent="You're the sweetest, Lil monkeh! Mwehe!";
-      messageContainer.classList.remove('hidden');
-      generateMessageBtn.classList.add('hidden');
-    },800);
-  };
+  // start music after first line begins
+  setTimeout(()=>{
+    audio1.currentTime=0;
+    audio1.play();
+  },500);
+};
 
-  backBtns.forEach(btn=>{
-    btn.onclick=()=>{
-      messageContainer.classList.add('hidden');
-      messageContainer.textContent='';
-      generateMessageBtn.classList.remove('hidden');
-      generateMessageBtn.disabled=false;
-      if(btn.closest('#page3')) resetFlowerPage();
-      showPage('page2');
-    };
-  });
-
-  showPage('page1');
+insideBack.onclick=()=>{
+  showPage('page2');
+  resetFlowerPage();
+  // reset letter + music
+  audio1.pause(); audio2.pause();
+  audio1.currentTime=0; audio2.currentTime=0;
+  messageContainer.classList.add('hidden');
+  messageContainer.textContent='';
+  generateMessageBtn.classList.remove('hidden');
+};
 </script>
 </body>
 </html>
