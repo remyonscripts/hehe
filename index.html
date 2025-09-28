@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>A Gift For You</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Gaegu:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Gaegu', cursive;
+            background-color: #FFF5E4; /* A soft cream background */
+        }
+        .page {
+            display: none;
+        }
+        .page.active {
+            display: flex;
+        }
+        .button-style {
+            background-color: #FFC0CB; /* Pink */
+            border: 2px solid #FF81A7; /* Darker Pink */
+            color: #4A4A4A;
+            font-weight: 700;
+            padding: 10px 20px;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: all 0.2s ease-in-out;
+            cursor: pointer;
+        }
+        .button-style:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
+        }
+         .button-style:disabled {
+            background-color: #f8d7da;
+            cursor: not-allowed;
+        }
+        .card {
+            background-color: white;
+            border-radius: 20px;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+            padding: 1.5rem; /* Adjusted padding for smaller screens */
+            text-align: center;
+        }
+
+        @media (min-width: 640px) {
+            .card {
+                padding: 2rem; /* Larger padding for bigger screens */
+            }
+        }
+    </style>
+</head>
+<body class="flex items-center justify-center min-h-screen">
+
+    <div id="app" class="w-full max-w-md mx-auto p-4">
+
+        <!-- Page 1: Initial Question -->
+        <div id="page1" class="page active flex-col items-center justify-center space-y-6 card">
+            <img src="1.png" alt="Cute character with hearts" class="w-32 h-32 sm:w-48 sm:h-48 object-cover rounded-full">
+            <h1 class="text-2xl sm:text-3xl font-bold text-gray-700">hi Lil monkeh</h1>
+            <p class="text-lg sm:text-xl text-gray-600">I got a gift for you. Would you like to see it?</p>
+            <div class="flex space-x-4">
+                <button id="yesBtn" class="button-style">YES PLEASE</button>
+                <button id="noBtn" class="button-style">NO THANKS</button>
+            </div>
+        </div>
+
+        <!-- Page 2: Gift Choice -->
+      <div id="page2" class="page flex-col items-center justify-center space-y-6 card">
+            <h1 class="text-2xl sm:text-3xl font-bold text-gray-700">THESE ARE FOR YOU!</h1>
+            <p class="text-lg sm:text-xl text-gray-600">I hope you like it mwehe</p>
+            <p class="text-md sm:text-lg text-gray-500">choose a button :3</p>
+            <div class="flex flex-col sm:flex-row items-center justify-center space-y-4 sm:space-y-0 sm:space-x-4">
+                <button id="envelopeBtn" class="transform hover:scale-105 transition-transform">
+                    <img src="2.png" alt="An envelope" class="w-24 h-24 sm:w-28 sm:h-28 object-contain">
+                </button>
+                <button id="filmBtn" class="transform hover:scale-105 transition-transform">
+                    <img src="4.png" alt="A film strip" class="w-24 h-24 sm:w-28 sm:h-28 object-contain">
+                </button>
+                <button id="flowerBtn" class="transform hover:scale-105 transition-transform">
+                    <img src="5.png" alt="A flower bouquet" class="w-24 h-24 sm:w-28 sm:h-28 object-contain rounded-lg">
+                </button>
+            </div>
+        </div>
+
+        <!-- Page 3: Flowers -->
+      <div id="page3" class="page flex-col items-center justify-center space-y-4 card">
+            <img src="3.png" alt="A bouquet of sunflowers" class="w-56 sm:w-64 h-auto object-contain rounded-lg">
+            <button class="backBtn button-style">BACK</button>
+        </div>
+
+        <!-- Page 4: Gemini Message -->
+      <div id="page4" class="page flex-col items-center justify-center space-y-4 card">
+            <h2 class="text-xl sm:text-2xl font-bold text-gray-700">A Special Message For You</h2>
+            <div id="messageContainer" class="mt-4 text-gray-700 text-lg hidden p-4 bg-yellow-100/50 rounded-lg min-h-[120px] w-full flex items-center justify-center"></div>
+            <div id="messageLoader" class="hidden text-gray-600">
+                <p>Thinking of the perfect words...</p>
+            </div>
+            <button id="generateMessageBtn" class="button-style bg-amber-300 hover:bg-amber-400 border-amber-400">✨ Read your message</button>
+            <button class="backBtn button-style">BACK</button>
+        </div>
+
+
+        <!-- Page 5: Photos -->
+      <div id="page5" class="page flex-col items-center justify-center space-y-6 card w-full">
+             <div class="bg-blue-200 p-4 rounded-lg shadow-inner w-full">
+                <div class="grid grid-cols-3 gap-2">
+                    <img src="https://placehold.co/100x120/a2d2ff/ffffff?text=Photo" class="rounded-md" alt="placeholder" onerror="this.onerror=null;this.src='https://placehold.co/100x120/a2d2ff/ffffff?text=Photo';">
+                    <img src="https://placehold.co/100x120/a2d2ff/ffffff?text=Photo" class="rounded-md" alt="placeholder" onerror="this.onerror=null;this.src='https://placehold.co/100x120/a2d2ff/ffffff?text=Photo';">
+                    <img src="https://placehold.co/100x120/a2d2ff/ffffff?text=Photo" class="rounded-md" alt="placeholder" onerror="this.onerror=null;this.src='https://placehold.co/100x120/a2d2ff/ffffff?text=Photo';">
+                    <img src="https://placehold.co/100x120/a2d2ff/ffffff?text=Photo" class="rounded-md" alt="placeholder" onerror="this.onerror=null;this.src='https://placehold.co/100x120/a2d2ff/ffffff?text=Photo';">
+                    <div class="flex flex-col items-center space-y-1">
+                        <div class="w-full h-1 bg-gray-600 rounded"></div>
+                        <img src="https://placehold.co/80x100/bde0fe/ffffff?text=Strip" class="rounded-md border-4 border-white" alt="placeholder" onerror="this.onerror=null;this.src='https://placehold.co/80x100/bde0fe/ffffff?text=Strip';">
+                        <img src="https://placehold.co/80x100/bde0fe/ffffff?text=Strip" class="rounded-md border-4 border-white" alt="placeholder" onerror="this.onerror=null;this.src='https://placehold.co/80x100/bde0fe/ffffff?text=Strip';">
+                         <img src="https://placehold.co/80x100/bde0fe/ffffff?text=Strip" class="rounded-md border-4 border-white" alt="placeholder" onerror="this.onerror=null;this.src='https://placehold.co/80x100/bde0fe/ffffff?text=Strip';">
+                    </div>
+                    <img src="https://placehold.co/100x120/a2d2ff/ffffff?text=Photo" class="rounded-md" alt="placeholder" onerror="this.onerror=null;this.src='https://placehold.co/100x120/a2d2ff/ffffff?text=Photo';">
+                    <img src="https://placehold.co/100x120/a2d2ff/ffffff?text=Photo" class="rounded-md" alt="placeholder" onerror="this.onerror=null;this.src='https://placehold.co/100x120/a2d2ff/ffffff?text=Photo';">
+                     <img src="https://placehold.co/100x120/a2d2ff/ffffff?text=Photo" class="rounded-md" alt="placeholder" onerror="this.onerror=null;this.src='https://placehold.co/100x120/a2d2ff/ffffff?text=Photo';">
+                     <img src="https://placehold.co/100x120/a2d2ff/ffffff?text=Photo" class="rounded-md" alt="placeholder" onerror="this.onerror=null;this.src='https://placehold.co/100x120/a2d2ff/ffffff?text=Photo';">
+                </div>
+            </div>
+            <button class="backBtn button-style">BACK</button>
+        </div>
+
+        <!-- Page 6: Sad Response -->
+      <div id="page6" class="page flex-col items-center justify-center space-y-6 card">
+            <img src="6.png" alt="Crying character" class="w-32 h-32 sm:w-48 sm:h-48 object-cover rounded-full">
+            <p class="text-lg sm:text-xl text-gray-600">I promise you'll like it</p>
+            <button id="tryAgainBtn" class="button-style">TRY AGAIN</button>
+        </div>
+
+    </div>
+
+    <script>
+        const pages = document.querySelectorAll('.page');
+        const yesBtn = document.getElementById('yesBtn');
+        const noBtn = document.getElementById('noBtn');
+        const tryAgainBtn = document.getElementById('tryAgainBtn');
+        const envelopeBtn = document.getElementById('envelopeBtn');
+        const filmBtn = document.getElementById('filmBtn');
+        const flowerBtn = document.getElementById('flowerBtn');
+        const backBtns = document.querySelectorAll('.backBtn');
+        
+        // Gemini feature elements
+        const generateMessageBtn = document.getElementById('generateMessageBtn');
+        const messageContainer = document.getElementById('messageContainer');
+        const messageLoader = document.getElementById('messageLoader');
+
+        function showPage(pageId) {
+            pages.forEach(page => {
+                page.classList.remove('active');
+            });
+            const pageToShow = document.getElementById(pageId);
+            if (pageToShow) {
+                pageToShow.classList.add('active');
+            }
+        }
+
+        // Gemini API call to generate a message
+        async function generateMessage() {
+            generateMessageBtn.disabled = true;
+            messageLoader.classList.remove('hidden');
+            messageContainer.classList.add('hidden');
+            messageContainer.textContent = '';
+
+
+            const userQuery = "Write a short, cute, and heartwarming message for someone nicknamed 'Lil monkeh'. Make it sound like a special, personal gift from a close friend. Keep it under 50 words and write in a cute, slightly informal style like 'mwehe'.";
+            const apiKey = ""; // In a real app, use a secure way to handle API keys.
+            const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-05-20:generateContent?key=${apiKey}`;
+
+            const payload = {
+                contents: [{ parts: [{ text: userQuery }] }],
+            };
+
+            try {
+                const response = await fetch(apiUrl, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+
+                if (!response.ok) {
+                    throw new Error(`API call failed with status: ${response.status}`);
+                }
+
+                const result = await response.json();
+                const candidate = result.candidates?.[0];
+
+                if (candidate && candidate.content?.parts?.[0]?.text) {
+                    const text = candidate.content.parts[0].text;
+                    messageContainer.textContent = text;
+                } else {
+                    messageContainer.textContent = "Couldn't think of anything special right now, but know you're appreciated! Mwehe.";
+                }
+            } catch (error) {
+                console.error("Error generating message:", error);
+                messageContainer.textContent = "My brain is a little fuzzy... but I wanted to say you're amazing! Mwehe.";
+            } finally {
+                messageLoader.classList.add('hidden');
+                messageContainer.classList.remove('hidden');
+                generateMessageBtn.classList.add('hidden'); // Hide the button after generating
+            }
+        }
+
+
+        yesBtn.addEventListener('click', () => showPage('page2'));
+        noBtn.addEventListener('click', () => showPage('page6'));
+        tryAgainBtn.addEventListener('click', () => showPage('page1'));
+        envelopeBtn.addEventListener('click', () => showPage('page4'));
+        filmBtn.addEventListener('click', () => showPage('page5'));
+        flowerBtn.addEventListener('click', () => showPage('page3'));
+        generateMessageBtn.addEventListener('click', generateMessage);
+
+        backBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                // Reset message page when going back
+                messageContainer.classList.add('hidden');
+                messageContainer.textContent = '';
+                generateMessageBtn.classList.remove('hidden');
+                generateMessageBtn.disabled = false;
+                showPage('page2');
+            });
+        });
+
+        // Initial page load
+        showPage('page1');
+    </script>
+</body>
+</html>
+
+
+
