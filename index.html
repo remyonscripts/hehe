@@ -12,14 +12,14 @@
         /* Base styles for a full-screen experience */
         html, body {
             height: 100%;
-            margin: 0; [cite: 2]
+            margin: 0;
             overflow: hidden; /* Prevents scrolling on the body */
         }
         body {
             font-family: 'Gaegu', cursive;
-            background-color: #FFF5E4; /* A soft cream background */ [cite: 3]
+            background-color: #FFF5E4; /* A soft cream background */
             display: flex;
-            align-items: center; [cite: 4]
+            align-items: center;
             justify-content: center;
             padding: 1rem; /* Add some padding for smaller screens */
         }
@@ -27,12 +27,12 @@
         /* Main container for the pages */
         #app {
             width: 100%;
-            height: 100%; [cite: 5]
-            max-width: 450px; /* Set a max-width for larger screens */ [cite: 5]
-            max-height: 800px; /* Set a max-height */ [cite: 6]
-            position: relative; /* This is crucial for stacking pages on top of each other */ [cite: 7]
+            height: 100%;
+            max-width: 450px; /* Set a max-width for larger screens */
+            max-height: 800px; /* Set a max-height */
+            position: relative; /* This is crucial for stacking pages on top of each other */
             box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-            border-radius: 24px; [cite: 8]
+            border-radius: 24px;
             overflow: hidden; /* Clips the content to the rounded corners */
         }
 
@@ -40,223 +40,235 @@
         .page {
             /* Pages are stacked on top of each other */
             position: absolute;
-            top: 0; [cite: 9]
+            top: 0;
             left: 0;
             width: 100%;
             height: 100%;
             background-color: white;
+            
             /* Center content within the page */
-            display: flex; [cite: 10]
-            flex-direction: column; 
-            align-items: center; 
-            justify-content: space-around; /* Changed from center to space-around */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
             padding: 1.5rem;
             text-align: center;
+            
             /* Transition for smooth page changes */
-            opacity: 0; [cite: 12]
-            visibility: hidden; [cite: 13]
+            opacity: 0;
+            visibility: hidden;
             transform: scale(1.05);
-            transition: opacity 0.4s ease-in-out, transform 0.4s ease-in-out; [cite: 14]
+            transition: opacity 0.4s ease-in-out, transform 0.4s ease-in-out;
         }
 
         /* The active page is visible and scaled to normal size */
         .page.active {
             opacity: 1;
-            visibility: visible; [cite: 15]
+            visibility: visible;
             transform: scale(1);
         }
 
         /* Button styles */
         .button-style {
-            background-color: #FFC0CB; /* Pink */ [cite: 16]
-            border: 2px solid #FF81A7; /* Darker Pink */ [cite: 17]
+            background-color: #FFC0CB; /* Pink */
+            border: 2px solid #FF81A7; /* Darker Pink */
             color: #4A4A4A;
             font-weight: 700;
-            padding: 12px 24px; /* Increased padding */
+            padding: 10px 20px;
             border-radius: 12px;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
             transition: all 0.2s ease-in-out;
-            cursor: pointer; [cite: 19]
+            cursor: pointer;
         }
         .button-style:hover {
-            transform: translateY(-2px); [cite: 20]
-            box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15); [cite: 20]
+            transform: translateY(-2px);
+            box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
         }
          .button-style:disabled {
             background-color: #f8d7da;
-            cursor: not-allowed; [cite: 21]
+            cursor: not-allowed;
         }
     </style>
 </head>
 <body>
 
+    <!-- This main container will hold all your pages -->
     <div id="app">
 
-        <div id="page1" class="page active flex-col space-y-4">
-            <img src="https://raw.githubusercontent.com/remyonescript/hehe/main/1.png" alt="Cute character with hearts" class="w-48 h-48 sm:w-56 sm:h-56 object-contain">
-            <h1 class="text-3xl sm:text-4xl font-bold text-gray-700">hi Lil monkeh</h1>
-            <p class="text-xl sm:text-2xl text-gray-600">I got a gift for you. [cite: 22]
-            Would you like to see it?</p> [cite: 23]
+        <!-- Page 1: Initial Question -->
+        <div id="page1" class="page active flex-col space-y-6">
+            <img src="1.png" alt="Cute character with hearts" class="w-40 h-40 sm:w-48 sm:h-48 object-contain">
+            <h1 class="text-2xl sm:text-3xl font-bold text-gray-700">hi Lil monkeh</h1>
+            <p class="text-lg sm:text-xl text-gray-600">I got a gift for you. Would you like to see it?</p>
             <div class="flex space-x-4">
-                <button id="yesBtn" class="button-style text-lg">YES PLEASE</button>
-                <button id="noBtn" class="button-style text-lg">NO THANKS</button>
+                <button id="yesBtn" class="button-style">YES PLEASE</button>
+                <button id="noBtn" class="button-style">NO THANKS</button>
             </div>
         </div>
 
-        <div id="page2" class="page flex-col space-y-4"> [cite: 24]
-            <h1 class="text-3xl sm:text-4xl font-bold text-gray-700">THESE ARE FOR YOU!</h1>
-            <p class="text-xl sm:text-2xl text-gray-600">I hope you like it mwehe</p>
-            <p class="text-lg sm:text-xl text-gray-500">choose a button :3</p>
+        <!-- Page 2: Gift Options -->
+        <div id="page2" class="page flex-col space-y-6">
+            <h1 class="text-2xl sm:text-3xl font-bold text-gray-700">THESE ARE FOR YOU!</h1>
+            <p class="text-lg sm:text-xl text-gray-600">I hope you like it mwehe</p>
+            <p class="text-md sm:text-lg text-gray-500">choose a button :3</p>
             <div class="flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-6 pt-4">
-                <button id="envelopeBtn" class="w-40 h-48 flex flex-col items-center justify-center p-3 border-2 border-pink-200 rounded-2xl bg-pink-50 hover:bg-pink-100 hover:shadow-lg transition-all transform hover:-translate-y-1"> [cite: 25]
-                    <img src="https://raw.githubusercontent.com/remyonescript/hehe/main/2.png" alt="An envelope" class="w-24 h-24 object-contain">
+                <button id="envelopeBtn" class="w-36 h-40 flex flex-col items-center justify-center p-3 border-2 border-pink-200 rounded-2xl bg-pink-50 hover:bg-pink-100 hover:shadow-lg transition-all transform hover:-translate-y-1">
+                    <img src="2.png" alt="An envelope" class="w-20 h-20 object-contain">
                 </button>
-                <button id="filmBtn" class="w-40 h-48 flex flex-col items-center justify-center p-3 border-2 border-blue-200 rounded-2xl bg-blue-50 hover:bg-blue-100 hover:shadow-lg transition-all transform hover:-translate-y-1">
-                    <img src="https://raw.githubusercontent.com/remyonescript/hehe/main/4.png" alt="A film strip" class="w-24 h-24 object-contain"> [cite: 26]
+                <button id="filmBtn" class="w-36 h-40 flex flex-col items-center justify-center p-3 border-2 border-blue-200 rounded-2xl bg-blue-50 hover:bg-blue-100 hover:shadow-lg transition-all transform hover:-translate-y-1">
+                    <img src="4.png" alt="A film strip" class="w-20 h-20 object-contain">
                 </button>
-                <button id="flowerBtn" class="w-40 h-48 flex flex-col items-center justify-center p-3 border-2 border-amber-200 rounded-2xl bg-amber-50 hover:bg-amber-100 hover:shadow-lg transition-all transform hover:-translate-y-1">
-                    <img src="https://raw.githubusercontent.com/remyonescript/hehe/main/5.png" alt="A flower bouquet" class="w-24 h-24 object-contain">
-                </button> [cite: 27]
+                <button id="flowerBtn" class="w-36 h-40 flex flex-col items-center justify-center p-3 border-2 border-amber-200 rounded-2xl bg-amber-50 hover:bg-amber-100 hover:shadow-lg transition-all transform hover:-translate-y-1">
+                    <img src="5.png" alt="A flower bouquet" class="w-20 h-20 object-contain">
+                </button>
             </div>
         </div>
 
+        <!-- Page 3: Flower and Video -->
         <div id="page3" class="page flex-col space-y-4 justify-center">
              <div id="flowerVideoContainer" class="flex flex-row items-center justify-center w-full max-w-sm gap-2">
-                <div id="flowerWrapper" class="flex flex-col items-center justify-center transition-all duration-700 ease-in-out w-full"> [cite: 28]
-                     <img id="flowerImage" src="https://raw.githubusercontent.com/remyonescript/hehe/main/3.png" alt="A bouquet of sunflowers" class="object-contain w-56 h-auto transition-transform rounded-lg cursor-pointer sm:w-64 transform hover:scale-105">
+                <!-- Flower Image and Tap Me prompt -->
+                <div id="flowerWrapper" class="flex flex-col items-center justify-center transition-all duration-700 ease-in-out w-full">
+                     <img id="flowerImage" src="3.png" alt="A bouquet of sunflowers" class="object-contain w-56 h-auto transition-transform rounded-lg cursor-pointer sm:w-64 transform hover:scale-105">
                      <div id="tapMe" class="hidden mt-4 text-center">
-                        <svg class="w-6 h-6 mx-auto text-gray-500 animate-bounce" fill="none" viewBox="0 0 24 24" stroke="currentColor"> [cite: 29]
+                        <svg class="w-6 h-6 mx-auto text-gray-500 animate-bounce" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path>
                         </svg>
-                        <p class="text-lg text-gray-600">tap the flower!</p> [cite: 30]
+                        <p class="text-lg text-gray-600">tap the flower!</p>
                      </div>
                 </div>
+                <!-- Video, initially hidden -->
                 <div id="videoWrapper" class="flex items-center justify-center transition-all duration-700 ease-in-out w-0 overflow-hidden">
-                    <video id="flowerVideo" class="w-full rounded-lg aspect-square" controls playsinline> [cite: 31]
-                        <source src="https://raw.githubusercontent.com/remyonescript/hehe/main/foryou.mp4" type="video/mp4">
-                        Your browser does not support the video tag. [cite: 32]
+                    <video id="flowerVideo" class="w-full rounded-lg aspect-square" controls playsinline>
+                        <source src="foryou.mp4" type="video/mp4">
+                        Your browser does not support the video tag.
                     </video>
                 </div>
             </div>
-            <button class="backBtn button-style text-lg">BACK</button>
+            <button class="backBtn button-style">BACK</button>
         </div>
         
+        <!-- Page 4: Generated Message -->
         <div id="page4" class="page flex-col space-y-4">
-            <h2 class="text-2xl sm:text-3xl font-bold text-gray-700">A Special Message For You</h2> [cite: 33]
+            <h2 class="text-xl sm:text-2xl font-bold text-gray-700">A Special Message For You</h2>
             <div id="messageContainer" class="mt-4 text-gray-700 text-lg hidden p-4 bg-yellow-100/50 rounded-lg min-h-[120px] w-full flex items-center justify-center"></div>
             <div id="messageLoader" class="hidden text-gray-600">
                 <p>Thinking of the perfect words...</p>
             </div>
-            <button id="generateMessageBtn" class="button-style bg-amber-300 hover:bg-amber-400 border-amber-400 text-lg">✨ Read your message</button>
-            <button class="backBtn button-style text-lg">BACK</button> [cite: 34]
+            <button id="generateMessageBtn" class="button-style bg-amber-300 hover:bg-amber-400 border-amber-400">✨ Read your message</button>
+            <button class="backBtn button-style">BACK</button>
         </div>
         
+        <!-- Page 5: Photos -->
         <div id="page5" class="page flex-col space-y-6 w-full">
              <div class="w-full p-4 bg-blue-200 rounded-lg shadow-inner">
                 <div class="grid grid-cols-3 gap-2">
-                    <img src="https://placehold.co/100x120/a2d2ff/ffffff?text=Photo" class="rounded-md" alt="placeholder"> [cite: 35]
                     <img src="https://placehold.co/100x120/a2d2ff/ffffff?text=Photo" class="rounded-md" alt="placeholder">
                     <img src="https://placehold.co/100x120/a2d2ff/ffffff?text=Photo" class="rounded-md" alt="placeholder">
                     <img src="https://placehold.co/100x120/a2d2ff/ffffff?text=Photo" class="rounded-md" alt="placeholder">
-                    <div class="flex flex-col items-center justify-center space-y-2 py-2"> [cite: 36]
+                    <img src="https://placehold.co/100x120/a2d2ff/ffffff?text=Photo" class="rounded-md" alt="placeholder">
+                    <div class="flex flex-col items-center justify-center space-y-2 py-2">
                          <img src="https://placehold.co/80x100/bde0fe/ffffff?text=Strip" class="border-4 border-white rounded-md" alt="placeholder">
                          <img src="https://placehold.co/80x100/bde0fe/ffffff?text=Strip" class="border-4 border-white rounded-md" alt="placeholder">
                     </div>
-                    <img src="https://placehold.co/100x120/a2d2ff/ffffff?text=Photo" class="rounded-md" alt="placeholder"> [cite: 37]
+                    <img src="https://placehold.co/100x120/a2d2ff/ffffff?text=Photo" class="rounded-md" alt="placeholder">
                     <img src="https://placehold.co/100x120/a2d2ff/ffffff?text=Photo" class="rounded-md" alt="placeholder">
                      <img src="https://placehold.co/100x120/a2d2ff/ffffff?text=Photo" class="rounded-md" alt="placeholder">
                      <img src="https://placehold.co/100x120/a2d2ff/ffffff?text=Photo" class="rounded-md" alt="placeholder">
                 </div>
-            </div> [cite: 38]
-            <button class="backBtn button-style text-lg">BACK</button>
+            </div>
+            <button class="backBtn button-style">BACK</button>
         </div>
         
+        <!-- Page 6: "No" Answer -->
         <div id="page6" class="page flex-col space-y-6">
             <img src="https://raw.githubusercontent.com/remyonescript/hehe/main/6.png" alt="Crying character" class="w-32 h-32 sm:w-48 sm:h-48 object-cover rounded-full">
-            <p class="text-xl sm:text-2xl text-gray-600">I promise you'll like it</p> [cite: 39]
-            <button id="tryAgainBtn" class="button-style text-lg">TRY AGAIN</button>
+            <p class="text-lg sm:text-xl text-gray-600">I promise you'll like it</p>
+            <button id="tryAgainBtn" class="button-style">TRY AGAIN</button>
         </div>
 
     </div>
 
     <script>
         const pages = document.querySelectorAll('.page');
-        const yesBtn = document.getElementById('yesBtn'); [cite: 40]
+        const yesBtn = document.getElementById('yesBtn');
         const noBtn = document.getElementById('noBtn');
         const tryAgainBtn = document.getElementById('tryAgainBtn');
         const envelopeBtn = document.getElementById('envelopeBtn');
         const filmBtn = document.getElementById('filmBtn');
-        const flowerBtn = document.getElementById('flowerBtn'); [cite: 41]
+        const flowerBtn = document.getElementById('flowerBtn');
         const backBtns = document.querySelectorAll('.backBtn');
         
         const generateMessageBtn = document.getElementById('generateMessageBtn');
         const messageContainer = document.getElementById('messageContainer');
         const messageLoader = document.getElementById('messageLoader');
-        const flowerImage = document.getElementById('flowerImage'); [cite: 42]
+
+        const flowerImage = document.getElementById('flowerImage');
         const tapMe = document.getElementById('tapMe');
         const flowerWrapper = document.getElementById('flowerWrapper');
         const videoWrapper = document.getElementById('videoWrapper');
         const flowerVideo = document.getElementById('flowerVideo');
 
-        function showPage(pageId) { [cite: 43]
+
+        function showPage(pageId) {
             pages.forEach(page => {
                 // A simple way to toggle the active class
                 if (page.id === pageId) {
                     page.classList.add('active');
                 } else {
-                    page.classList.remove('active'); [cite: 44]
+                    page.classList.remove('active');
                 }
             });
-        } [cite: 45]
+        }
 
         async function generateMessage() {
             generateMessageBtn.disabled = true;
-            messageLoader.classList.remove('hidden'); [cite: 46]
+            messageLoader.classList.remove('hidden');
             messageContainer.classList.add('hidden');
             messageContainer.textContent = '';
 
             const userQuery = "Write a short, cute, and heartwarming message for someone nicknamed 'Lil monkeh'. Make it sound like a special, personal gift from a close friend. Keep it under 50 words and write in a cute, slightly informal style like 'mwehe'.";
-            // NOTE: The API key is intentionally left empty. [cite: 47]
-            // In a real-world scenario, you would need a valid API key from Google AI Studio. [cite: 47]
-            const apiKey = ""; [cite: 48]
+            // NOTE: The API key is intentionally left empty.
+            // In a real-world scenario, you would need a valid API key from Google AI Studio.
+            const apiKey = ""; 
             const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-05-20:generateContent?key=${apiKey}`;
 
             const payload = {
                 contents: [{ parts: [{ text: userQuery }] }],
             };
 
-            try { [cite: 49]
+            try {
                 const response = await fetch(apiUrl, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify(payload)
-                }); [cite: 50]
+                });
 
                 if (!response.ok) {
-                    throw new Error(`API call failed with status: ${response.status}`); [cite: 51]
+                    throw new Error(`API call failed with status: ${response.status}`);
                 }
 
                 const result = await response.json();
-                const candidate = result.candidates?.[0]; [cite: 52]
+                const candidate = result.candidates?.[0];
 
                 if (candidate && candidate.content?.parts?.[0]?.text) {
-                    messageContainer.textContent = candidate.content.parts[0].text; [cite: 53]
+                    messageContainer.textContent = candidate.content.parts[0].text;
                 } else {
-                    messageContainer.textContent = "Couldn't think of anything special right now, but know you're appreciated! Mwehe."; [cite: 54]
+                    messageContainer.textContent = "Couldn't think of anything special right now, but know you're appreciated! Mwehe.";
                 }
             } catch (error) {
-                console.error("Error generating message:", error); [cite: 55]
-                messageContainer.textContent = "My brain is a little fuzzy... but I wanted to say you're amazing! Mwehe."; [cite: 55]
+                console.error("Error generating message:", error);
+                messageContainer.textContent = "My brain is a little fuzzy... but I wanted to say you're amazing! Mwehe.";
             } finally {
                 messageLoader.classList.add('hidden');
                 messageContainer.classList.remove('hidden');
-                generateMessageBtn.classList.add('hidden'); [cite: 57]
+                generateMessageBtn.classList.add('hidden');
             }
         }
 
         function resetFlowerPage() {
             flowerVideo.pause();
-            flowerVideo.currentTime = 0; [cite: 58]
+            flowerVideo.currentTime = 0;
             
             flowerWrapper.classList.remove('w-1/2');
             flowerWrapper.classList.add('w-full');
@@ -269,18 +281,20 @@
         // --- Event Listeners ---
 
         yesBtn.addEventListener('click', () => showPage('page2'));
-        noBtn.addEventListener('click', () => showPage('page6')); [cite: 59]
+        noBtn.addEventListener('click', () => showPage('page6'));
         tryAgainBtn.addEventListener('click', () => showPage('page1'));
         
         envelopeBtn.addEventListener('click', () => showPage('page4'));
         filmBtn.addEventListener('click', () => showPage('page5'));
-        flowerBtn.addEventListener('click', () => { [cite: 60]
+
+        flowerBtn.addEventListener('click', () => {
             showPage('page3');
             setTimeout(() => {
                 tapMe.classList.remove('hidden');
             }, 800);
         });
-        flowerImage.addEventListener('click', () => { [cite: 61]
+        
+        flowerImage.addEventListener('click', () => {
             tapMe.classList.add('hidden');
             
             flowerWrapper.classList.remove('w-full');
@@ -288,17 +302,18 @@
             videoWrapper.classList.remove('w-0');
             videoWrapper.classList.add('w-1/2');
             
-            setTimeout(() => { [cite: 62]
+            setTimeout(() => {
                 flowerVideo.currentTime = 0;
                 const playPromise = flowerVideo.play();
                 if (playPromise !== undefined) {
                     playPromise.catch(error => {
-                        console.error("Video autoplay was prevented:", error); [cite: 63]
+                        console.error("Video autoplay was prevented:", error);
                     });
                 }
             }, 500); // Wait for transition to be visible
         });
-        generateMessageBtn.addEventListener('click', generateMessage); [cite: 64]
+
+        generateMessageBtn.addEventListener('click', generateMessage);
 
         backBtns.forEach(btn => {
             btn.addEventListener('click', () => {
@@ -306,19 +321,20 @@
                 messageContainer.classList.add('hidden');
                 messageContainer.textContent = '';
                 generateMessageBtn.classList.remove('hidden');
-                generateMessageBtn.disabled = false; [cite: 65]
+                generateMessageBtn.disabled = false;
                 
                 // Reset flower page if coming from there
                 if(btn.closest('#page3')) {
                     resetFlowerPage();
-                } [cite: 66]
+                }
 
                 showPage('page2');
             });
         });
 
         // Ensure the first page is shown on load
-        showPage('page1'); [cite: 67]
+        showPage('page1');
     </script>
 </body>
 </html>
+
