@@ -1,347 +1,312 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>A Gift For You</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Gaegu:wght@400;700&display=swap" rel="stylesheet">
-    <style>
-        /* Base styles for a full-screen experience */
-        html, body {
-            height: 100%;
-            margin: 0;
-            overflow: hidden; /* Prevents scrolling on the body */
-        }
-        body {
-            font-family: 'Gaegu', cursive;
-            background-color: #FFF5E4; /* A soft cream background */
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 1rem; /* Add some padding for smaller screens */
-        }
-        
-        /* Main container for the pages */
-        #app {
-            width: 90vw;
-            height: 90vh;
-            max-width: 90vw; /* Set a max-width for larger screens */
-            max-height: 90vh; /* Set a max-height */
-            position: relative; /* This is crucial for stacking pages on top of each other */
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-            border-radius: 24px;
-            overflow: hidden; /* Clips the content to the rounded corners */
-        }
- 
-        /* === Scale all content inside #app === */
-        #app * {
-            transform: scale(1.2);       /* 20% bigger overall */
-            transform-origin: center;    /* para nasa gitna ang pag-scale */
-        }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>A Gift For You</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Gaegu:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    html, body {
+      height: 100%;
+      margin: 0;
+      overflow: hidden;
+    }
+    body {
+      font-family: 'Gaegu', cursive;
+      background-color: #FFF5E4;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 1rem;
+    }
 
-        /* Styling for each page */
-        .page {
-            /* Pages are stacked on top of each other */
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: white;
-            
-            /* Center content within the page */
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            padding: 1.5rem;
-            text-align: center;
-            
-            /* Transition for smooth page changes */
-            opacity: 0;
-            visibility: hidden;
-            transform: scale(1.05);
-            transition: opacity 0.4s ease-in-out, transform 0.4s ease-in-out;
-        }
+    /* White container */
+    #app {
+      width: 90vw;
+      height: 90vh;
+      max-width: 90vw;
+      max-height: 90vh;
+      position: relative;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+      border-radius: 24px;
+      overflow: hidden;
+      background: #fff;
+    }
 
-        /* The active page is visible and scaled to normal size */
-        .page.active {
-            opacity: 1;
-            visibility: visible;
-            transform: scale(1);
-        }
+    /* Pages */
+    .page {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: white;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 2.5rem;       /* extra breathing room */
+      text-align: center;
+      gap: 1.5rem;           /* vertical spacing between elements */
+      opacity: 0;
+      visibility: hidden;
+      transform: scale(1.05);
+      transition: opacity 0.4s ease-in-out, transform 0.4s ease-in-out;
+    }
+    .page.active {
+      opacity: 1;
+      visibility: visible;
+      transform: scale(1);
+    }
 
-        /* Button styles */
-        .button-style {
-            background-color: #FFC0CB; /* Pink */
-            border: 2px solid #FF81A7; /* Darker Pink */
-            color: #4A4A4A;
-            font-weight: 700;
-            padding: 10px 20px;
-            border-radius: 12px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            transition: all 0.2s ease-in-out;
-            cursor: pointer;
-        }
-        .button-style:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
-        }
-         .button-style:disabled {
-            background-color: #f8d7da;
-            cursor: not-allowed;
-        }
-    </style>
+    /* Base button: sky blue */
+    .button-style {
+      background-color: #87CEFA;
+      border: 2px solid #5bb0e8;
+      color: #fff;
+      font-weight: 700;
+      padding: 12px 28px;
+      border-radius: 14px;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+      transition: all 0.2s ease-in-out;
+      cursor: pointer;
+    }
+    .button-style:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 8px rgba(0,0,0,0.15);
+    }
+    .button-style:disabled {
+      background-color: #b0d8f8;
+      cursor: not-allowed;
+    }
+
+    /* Pink NO THANKS button */
+    #noBtn {
+      background-color: #FFC0CB;
+      border-color: #FF81A7;
+      color: #4A4A4A;
+    }
+
+    /* Back buttons stay sky blue (inherit base) */
+    .backBtn {
+      background-color: #87CEFA;
+      border-color: #5bb0e8;
+    }
+
+    /* Images fit nicely inside container */
+    #app img {
+      max-width: 90%;
+      height: auto;
+      object-fit: contain;
+    }
+  </style>
 </head>
 <body>
 
-    <!-- This main container will hold all your pages -->
-    <div id="app">
+  <div id="app">
 
-        <!-- Page 1: Initial Question -->
-        <div id="page1" class="page active flex-col space-y-6">
-            <img src="1.png" alt="Cute character with hearts" class="w-40 h-40 sm:w-48 sm:h-48 object-contain">
-            <h1 class="text-2xl sm:text-3xl font-bold text-gray-700">hi Lil monkeh</h1>
-            <p class="text-lg sm:text-xl text-gray-600">I got a gift for you. Would you like to see it?</p>
-            <div class="flex space-x-4">
-                <button id="yesBtn" class="button-style">YES PLEASE</button>
-                <button id="noBtn" class="button-style">NO THANKS</button>
-            </div>
-        </div>
-
-        <!-- Page 2: Gift Options -->
-        <div id="page2" class="page flex-col space-y-6">
-            <h1 class="text-2xl sm:text-3xl font-bold text-gray-700">THESE ARE FOR YOU!</h1>
-            <p class="text-lg sm:text-xl text-gray-600">I hope you like it mwehe</p>
-            <p class="text-md sm:text-lg text-gray-500">choose a button :3</p>
-            <div class="flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-6 pt-4">
-                <button id="envelopeBtn" class="w-36 h-40 flex flex-col items-center justify-center p-3 border-2 border-pink-200 rounded-2xl bg-pink-50 hover:bg-pink-100 hover:shadow-lg transition-all transform hover:-translate-y-1">
-                    <img src="2.png" alt="An envelope" class="w-20 h-20 object-contain">
-                </button>
-                <button id="filmBtn" class="w-36 h-40 flex flex-col items-center justify-center p-3 border-2 border-blue-200 rounded-2xl bg-blue-50 hover:bg-blue-100 hover:shadow-lg transition-all transform hover:-translate-y-1">
-                    <img src="4.png" alt="A film strip" class="w-20 h-20 object-contain">
-                </button>
-                <button id="flowerBtn" class="w-36 h-40 flex flex-col items-center justify-center p-3 border-2 border-amber-200 rounded-2xl bg-amber-50 hover:bg-amber-100 hover:shadow-lg transition-all transform hover:-translate-y-1">
-                    <img src="5.png" alt="A flower bouquet" class="w-20 h-20 object-contain">
-                </button>
-            </div>
-        </div>
-
-        <!-- Page 3: Flower and Video -->
-        <div id="page3" class="page flex-col space-y-4 justify-center">
-             <div id="flowerVideoContainer" class="flex flex-row items-center justify-center w-full max-w-sm gap-2">
-                <!-- Flower Image and Tap Me prompt -->
-                <div id="flowerWrapper" class="flex flex-col items-center justify-center transition-all duration-700 ease-in-out w-full">
-                     <img id="flowerImage" src="3.png" alt="A bouquet of sunflowers" class="object-contain w-56 h-auto transition-transform rounded-lg cursor-pointer sm:w-64 transform hover:scale-105">
-                     <div id="tapMe" class="hidden mt-4 text-center">
-                        <svg class="w-6 h-6 mx-auto text-gray-500 animate-bounce" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path>
-                        </svg>
-                        <p class="text-lg text-gray-600">tap the flower!</p>
-                     </div>
-                </div>
-                <!-- Video, initially hidden -->
-                <div id="videoWrapper" class="flex items-center justify-center transition-all duration-700 ease-in-out w-0 overflow-hidden">
-                    <video id="flowerVideo" class="w-full rounded-lg aspect-square" controls playsinline>
-                        <source src="foryou.mp4" type="video/mp4">
-                        Your browser does not support the video tag.
-                    </video>
-                </div>
-            </div>
-            <button class="backBtn button-style">BACK</button>
-        </div>
-        
-        <!-- Page 4: Generated Message -->
-        <div id="page4" class="page flex-col space-y-4">
-            <h2 class="text-xl sm:text-2xl font-bold text-gray-700">A Special Message For You</h2>
-            <div id="messageContainer" class="mt-4 text-gray-700 text-lg hidden p-4 bg-yellow-100/50 rounded-lg min-h-[120px] w-full flex items-center justify-center"></div>
-            <div id="messageLoader" class="hidden text-gray-600">
-                <p>Thinking of the perfect words...</p>
-            </div>
-            <button id="generateMessageBtn" class="button-style bg-amber-300 hover:bg-amber-400 border-amber-400">✨ Read your message</button>
-            <button class="backBtn button-style">BACK</button>
-        </div>
-        
-        <!-- Page 5: Photos -->
-        <div id="page5" class="page flex-col space-y-6 w-full">
-             <div class="w-full p-4 bg-blue-200 rounded-lg shadow-inner">
-                <div class="grid grid-cols-3 gap-2">
-                    <img src="https://placehold.co/100x120/a2d2ff/ffffff?text=Photo" class="rounded-md" alt="placeholder">
-                    <img src="https://placehold.co/100x120/a2d2ff/ffffff?text=Photo" class="rounded-md" alt="placeholder">
-                    <img src="https://placehold.co/100x120/a2d2ff/ffffff?text=Photo" class="rounded-md" alt="placeholder">
-                    <img src="https://placehold.co/100x120/a2d2ff/ffffff?text=Photo" class="rounded-md" alt="placeholder">
-                    <div class="flex flex-col items-center justify-center space-y-2 py-2">
-                         <img src="https://placehold.co/80x100/bde0fe/ffffff?text=Strip" class="border-4 border-white rounded-md" alt="placeholder">
-                         <img src="https://placehold.co/80x100/bde0fe/ffffff?text=Strip" class="border-4 border-white rounded-md" alt="placeholder">
-                    </div>
-                    <img src="https://placehold.co/100x120/a2d2ff/ffffff?text=Photo" class="rounded-md" alt="placeholder">
-                    <img src="https://placehold.co/100x120/a2d2ff/ffffff?text=Photo" class="rounded-md" alt="placeholder">
-                     <img src="https://placehold.co/100x120/a2d2ff/ffffff?text=Photo" class="rounded-md" alt="placeholder">
-                     <img src="https://placehold.co/100x120/a2d2ff/ffffff?text=Photo" class="rounded-md" alt="placeholder">
-                </div>
-            </div>
-            <button class="backBtn button-style">BACK</button>
-        </div>
-        
-        <!-- Page 6: "No" Answer -->
-        <div id="page6" class="page flex-col space-y-6">
-            <img src="https://raw.githubusercontent.com/remyonescript/hehe/main/6.png" alt="Crying character" class="w-32 h-32 sm:w-48 sm:h-48 object-cover rounded-full">
-            <p class="text-lg sm:text-xl text-gray-600">I promise you'll like it</p>
-            <button id="tryAgainBtn" class="button-style">TRY AGAIN</button>
-        </div>
-
+    <!-- Page 1 -->
+    <div id="page1" class="page active flex-col">
+      <img src="1.png" alt="Cute character with hearts" class="w-40 sm:w-48 object-contain">
+      <h1 class="text-2xl sm:text-3xl font-bold text-gray-700">hi Lil monkeh</h1>
+      <p class="text-lg sm:text-xl text-gray-600">I got a gift for you. Would you like to see it?</p>
+      <div class="flex space-x-4">
+        <button id="yesBtn" class="button-style">YES PLEASE</button>
+        <button id="noBtn" class="button-style">NO THANKS</button>
+      </div>
     </div>
 
-    <script>
-        const pages = document.querySelectorAll('.page');
-        const yesBtn = document.getElementById('yesBtn');
-        const noBtn = document.getElementById('noBtn');
-        const tryAgainBtn = document.getElementById('tryAgainBtn');
-        const envelopeBtn = document.getElementById('envelopeBtn');
-        const filmBtn = document.getElementById('filmBtn');
-        const flowerBtn = document.getElementById('flowerBtn');
-        const backBtns = document.querySelectorAll('.backBtn');
-        
-        const generateMessageBtn = document.getElementById('generateMessageBtn');
-        const messageContainer = document.getElementById('messageContainer');
-        const messageLoader = document.getElementById('messageLoader');
+    <!-- Page 2 -->
+    <div id="page2" class="page flex-col">
+      <h1 class="text-2xl sm:text-3xl font-bold text-gray-700">THESE ARE FOR YOU!</h1>
+      <p class="text-lg sm:text-xl text-gray-600">I hope you like it mwehe</p>
+      <p class="text-md sm:text-lg text-gray-500">choose a button :3</p>
+      <div class="flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-6 pt-4">
+        <button id="envelopeBtn" class="w-36 h-40 flex flex-col items-center justify-center p-3 border-2 border-pink-200 rounded-2xl bg-pink-50 hover:bg-pink-100 hover:shadow-lg transition-all">
+          <img src="2.png" alt="An envelope" class="w-20 h-20 object-contain">
+        </button>
+        <button id="filmBtn" class="w-36 h-40 flex flex-col items-center justify-center p-3 border-2 border-blue-200 rounded-2xl bg-blue-50 hover:bg-blue-100 hover:shadow-lg transition-all">
+          <img src="4.png" alt="A film strip" class="w-20 h-20 object-contain">
+        </button>
+        <button id="flowerBtn" class="w-36 h-40 flex flex-col items-center justify-center p-3 border-2 border-amber-200 rounded-2xl bg-amber-50 hover:bg-amber-100 hover:shadow-lg transition-all">
+          <img src="5.png" alt="A flower bouquet" class="w-20 h-20 object-contain">
+        </button>
+      </div>
+    </div>
 
-        const flowerImage = document.getElementById('flowerImage');
-        const tapMe = document.getElementById('tapMe');
-        const flowerWrapper = document.getElementById('flowerWrapper');
-        const videoWrapper = document.getElementById('videoWrapper');
-        const flowerVideo = document.getElementById('flowerVideo');
+    <!-- Page 3 -->
+    <div id="page3" class="page flex-col space-y-4 justify-center">
+      <div id="flowerVideoContainer" class="flex flex-row items-center justify-center w-full max-w-sm gap-2">
+        <div id="flowerWrapper" class="flex flex-col items-center justify-center transition-all duration-700 ease-in-out w-full">
+          <img id="flowerImage" src="3.png" alt="A bouquet of sunflowers" class="object-contain w-56 sm:w-64 rounded-lg cursor-pointer hover:scale-105 transition-transform">
+          <div id="tapMe" class="hidden mt-4 text-center">
+            <svg class="w-6 h-6 mx-auto text-gray-500 animate-bounce" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path>
+            </svg>
+            <p class="text-lg text-gray-600">tap the flower!</p>
+          </div>
+        </div>
+        <div id="videoWrapper" class="flex items-center justify-center transition-all duration-700 ease-in-out w-0 overflow-hidden">
+          <video id="flowerVideo" class="w-full rounded-lg aspect-square" controls playsinline>
+            <source src="foryou.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+          </video>
+        </div>
+      </div>
+      <button class="backBtn button-style">BACK</button>
+    </div>
 
+    <!-- Page 4 -->
+    <div id="page4" class="page flex-col space-y-4">
+      <h2 class="text-xl sm:text-2xl font-bold text-gray-700">A Special Message For You</h2>
+      <div id="messageContainer" class="mt-4 text-gray-700 text-lg hidden p-4 bg-yellow-100/50 rounded-lg min-h-[120px] w-full flex items-center justify-center"></div>
+      <div id="messageLoader" class="hidden text-gray-600">
+        <p>Thinking of the perfect words...</p>
+      </div>
+      <button id="generateMessageBtn" class="button-style">✨ Read your message</button>
+      <button class="backBtn button-style">BACK</button>
+    </div>
 
-        function showPage(pageId) {
-            pages.forEach(page => {
-                // A simple way to toggle the active class
-                if (page.id === pageId) {
-                    page.classList.add('active');
-                } else {
-                    page.classList.remove('active');
-                }
-            });
-        }
+    <!-- Page 5 -->
+    <div id="page5" class="page flex-col space-y-6 w-full">
+      <div class="w-full p-4 bg-blue-200 rounded-lg shadow-inner">
+        <div class="grid grid-cols-3 gap-2">
+          <img src="https://placehold.co/100x120/a2d2ff/ffffff?text=Photo" class="rounded-md" alt="placeholder">
+          <img src="https://placehold.co/100x120/a2d2ff/ffffff?text=Photo" class="rounded-md" alt="placeholder">
+          <img src="https://placehold.co/100x120/a2d2ff/ffffff?text=Photo" class="rounded-md" alt="placeholder">
+          <img src="https://placehold.co/100x120/a2d2ff/ffffff?text=Photo" class="rounded-md" alt="placeholder">
+          <div class="flex flex-col items-center justify-center space-y-2 py-2">
+            <img src="https://placehold.co/80x100/bde0fe/ffffff?text=Strip" class="border-4 border-white rounded-md" alt="placeholder">
+            <img src="https://placehold.co/80x100/bde0fe/ffffff?text=Strip" class="border-4 border-white rounded-md" alt="placeholder">
+          </div>
+          <img src="https://placehold.co/100x120/a2d2ff/ffffff?text=Photo" class="rounded-md" alt="placeholder">
+          <img src="https://placehold.co/100x120/a2d2ff/ffffff?text=Photo" class="rounded-md" alt="placeholder">
+          <img src="https://placehold.co/100x120/a2d2ff/ffffff?text=Photo" class="rounded-md" alt="placeholder">
+          <img src="https://placehold.co/100x120/a2d2ff/ffffff?text=Photo" class="rounded-md" alt="placeholder">
+        </div>
+      </div>
+      <button class="backBtn button-style">BACK</button>
+    </div>
 
-        async function generateMessage() {
-            generateMessageBtn.disabled = true;
-            messageLoader.classList.remove('hidden');
-            messageContainer.classList.add('hidden');
-            messageContainer.textContent = '';
+    <!-- Page 6 -->
+    <div id="page6" class="page flex-col space-y-6">
+      <img src="https://raw.githubusercontent.com/remyonescript/hehe/main/6.png" alt="Crying character" class="w-32 sm:w-48 object-cover rounded-full">
+      <p class="text-lg sm:text-xl text-gray-600">I promise you'll like it</p>
+      <button id="tryAgainBtn" class="button-style">TRY AGAIN</button>
+    </div>
 
-            const userQuery = "Write a short, cute, and heartwarming message for someone nicknamed 'Lil monkeh'. Make it sound like a special, personal gift from a close friend. Keep it under 50 words and write in a cute, slightly informal style like 'mwehe'.";
-            // NOTE: The API key is intentionally left empty.
-            // In a real-world scenario, you would need a valid API key from Google AI Studio.
-            const apiKey = ""; 
-            const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-05-20:generateContent?key=${apiKey}`;
+  </div>
 
-            const payload = {
-                contents: [{ parts: [{ text: userQuery }] }],
-            };
+  <script>
+    const pages = document.querySelectorAll('.page');
+    const yesBtn = document.getElementById('yesBtn');
+    const noBtn = document.getElementById('noBtn');
+    const tryAgainBtn = document.getElementById('tryAgainBtn');
+    const envelopeBtn = document.getElementById('envelopeBtn');
+    const filmBtn = document.getElementById('filmBtn');
+    const flowerBtn = document.getElementById('flowerBtn');
+    const backBtns = document.querySelectorAll('.backBtn');
 
-            try {
-                const response = await fetch(apiUrl, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(payload)
-                });
+    const generateMessageBtn = document.getElementById('generateMessageBtn');
+    const messageContainer = document.getElementById('messageContainer');
+    const messageLoader = document.getElementById('messageLoader');
 
-                if (!response.ok) {
-                    throw new Error(`API call failed with status: ${response.status}`);
-                }
+    const flowerImage = document.getElementById('flowerImage');
+    const tapMe = document.getElementById('tapMe');
+    const flowerWrapper = document.getElementById('flowerWrapper');
+    const videoWrapper = document.getElementById('videoWrapper');
+    const flowerVideo = document.getElementById('flowerVideo');
 
-                const result = await response.json();
-                const candidate = result.candidates?.[0];
+    function showPage(pageId) {
+      pages.forEach(page => {
+        page.classList.toggle('active', page.id === pageId);
+      });
+    }
 
-                if (candidate && candidate.content?.parts?.[0]?.text) {
-                    messageContainer.textContent = candidate.content.parts[0].text;
-                } else {
-                    messageContainer.textContent = "Couldn't think of anything special right now, but know you're appreciated! Mwehe.";
-                }
-            } catch (error) {
-                console.error("Error generating message:", error);
-                messageContainer.textContent = "My brain is a little fuzzy... but I wanted to say you're amazing! Mwehe.";
-            } finally {
-                messageLoader.classList.add('hidden');
-                messageContainer.classList.remove('hidden');
-                generateMessageBtn.classList.add('hidden');
-            }
-        }
+    async function generateMessage() {
+      generateMessageBtn.disabled = true;
+      messageLoader.classList.remove('hidden');
+      messageContainer.classList.add('hidden');
+      messageContainer.textContent = '';
 
-        function resetFlowerPage() {
-            flowerVideo.pause();
-            flowerVideo.currentTime = 0;
-            
-            flowerWrapper.classList.remove('w-1/2');
-            flowerWrapper.classList.add('w-full');
-            videoWrapper.classList.remove('w-1/2');
-            videoWrapper.classList.add('w-0');
-            
-            tapMe.classList.add('hidden');
-        }
+      const userQuery = "Write a short, cute, and heartwarming message for someone nicknamed 'Lil monkeh'. Make it sound like a special, personal gift from a close friend. Keep it under 50 words and write in a cute, slightly informal style like 'mwehe'.";
+      const apiKey = "";
+      const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-05-20:generateContent?key=${apiKey}`;
 
-        // --- Event Listeners ---
+      const payload = { contents: [{ parts: [{ text: userQuery }] }] };
 
-        yesBtn.addEventListener('click', () => showPage('page2'));
-        noBtn.addEventListener('click', () => showPage('page6'));
-        tryAgainBtn.addEventListener('click', () => showPage('page1'));
-        
-        envelopeBtn.addEventListener('click', () => showPage('page4'));
-        filmBtn.addEventListener('click', () => showPage('page5'));
-
-        flowerBtn.addEventListener('click', () => {
-            showPage('page3');
-            setTimeout(() => {
-                tapMe.classList.remove('hidden');
-            }, 800);
-        });
-        
-        flowerImage.addEventListener('click', () => {
-            tapMe.classList.add('hidden');
-            
-            flowerWrapper.classList.remove('w-full');
-            flowerWrapper.classList.add('w-1/2');
-            videoWrapper.classList.remove('w-0');
-            videoWrapper.classList.add('w-1/2');
-            
-            setTimeout(() => {
-                flowerVideo.currentTime = 0;
-                const playPromise = flowerVideo.play();
-                if (playPromise !== undefined) {
-                    playPromise.catch(error => {
-                        console.error("Video autoplay was prevented:", error);
-                    });
-                }
-            }, 500); // Wait for transition to be visible
-        });
-
-        generateMessageBtn.addEventListener('click', generateMessage);
-
-        backBtns.forEach(btn => {
-            btn.addEventListener('click', () => {
-                // Reset message page if coming from there
-                messageContainer.classList.add('hidden');
-                messageContainer.textContent = '';
-                generateMessageBtn.classList.remove('hidden');
-                generateMessageBtn.disabled = false;
-                
-                // Reset flower page if coming from there
-                if(btn.closest('#page3')) {
-                    resetFlowerPage();
-                }
-
-                showPage('page2');
-            });
+      try {
+        const response = await fetch(apiUrl, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
         });
 
-        // Ensure the first page is shown on load
-        showPage('page1');
-    </script>
+        if (!response.ok) throw new Error(`API call failed with status: ${response.status}`);
+
+        const result = await response.json();
+        const candidate = result.candidates?.[0];
+
+        messageContainer.textContent = candidate?.content?.parts?.[0]?.text ||
+          "Couldn't think of anything special right now, but know you're appreciated! Mwehe.";
+      } catch {
+        messageContainer.textContent = "My brain is a little fuzzy... but I wanted to say you're amazing! Mwehe.";
+      } finally {
+        messageLoader.classList.add('hidden');
+        messageContainer.classList.remove('hidden');
+        generateMessageBtn.classList.add('hidden');
+      }
+    }
+
+    function resetFlowerPage() {
+      flowerVideo.pause();
+      flowerVideo.currentTime = 0;
+      flowerWrapper.classList.remove('w-1/2');
+      flowerWrapper.classList.add('w-full');
+      videoWrapper.classList.remove('w-1/2');
+      videoWrapper.classList.add('w-0');
+      tapMe.classList.add('hidden');
+    }
+
+    yesBtn.addEventListener('click', () => showPage('page2'));
+    noBtn.addEventListener('click', () => showPage('page6'));
+    tryAgainBtn.addEventListener('click', () => showPage('page1'));
+
+    envelopeBtn.addEventListener('click', () => showPage('page4'));
+    filmBtn.addEventListener('click', () => showPage('page5'));
+
+    flowerBtn.addEventListener('click', () => {
+      showPage('page3');
+      setTimeout(() => tapMe.classList.remove('hidden'), 800);
+    });
+
+    flowerImage.addEventListener('click', () => {
+      tapMe.classList.add('hidden');
+      flowerWrapper.classList.replace('w-full', 'w-1/2');
+      videoWrapper.classList.replace('w-0', 'w-1/2');
+      setTimeout(() => {
+        flowerVideo.currentTime = 0;
+        flowerVideo.play().catch(() => {});
+      }, 500);
+    });
+
+    generateMessageBtn.addEventListener('click', generateMessage);
+
+    backBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        messageContainer.classList.add('hidden');
+        messageContainer.textContent = '';
+        generateMessageBtn.classList.remove('hidden');
+        generateMessageBtn.disabled = false;
+        if (btn.closest('#page3')) resetFlowerPage();
+        showPage('page2');
+      });
+    });
+
+    showPage('page1');
+  </script>
 </body>
 </html>
-
-
