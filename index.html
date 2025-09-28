@@ -7,88 +7,64 @@
   <script src="https://cdn.tailwindcss.com"></script>
   <link href="https://fonts.googleapis.com/css2?family=Gaegu:wght@400;700&display=swap" rel="stylesheet">
   <style>
-    html, body {
-      height: 100%;
-      margin: 0;
-      overflow: hidden;
+    html,body{height:100%;margin:0;overflow:hidden;}
+    body{
+      font-family:'Gaegu',cursive;
+      background:#FFF5E4;
+      display:flex;align-items:center;justify-content:center;
+      padding:1rem;
     }
-    body {
-      font-family: 'Gaegu', cursive;
-      background-color: #FFF5E4;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 1rem;
+    #app{
+      width:90vw;height:90vh;
+      border-radius:24px;background:#fff;
+      box-shadow:0 10px 30px rgba(0,0,0,0.1);
+      position:relative;overflow:hidden;
     }
-    #app {
-      width: 90vw;
-      height: 90vh;
-      position: relative;
-      border-radius: 24px;
-      background: #fff;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-      overflow: hidden;
+    .page{
+      position:absolute;inset:0;
+      display:flex;flex-direction:column;align-items:center;justify-content:center;
+      text-align:center;padding:2rem;gap:2rem;
+      opacity:0;visibility:hidden;
+      transform:scale(1.05);
+      transition:opacity .4s ease,transform .4s ease;
     }
-    .page {
-      position: absolute;
-      inset: 0;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-      padding: 2rem;
-      gap: 2rem;
-      opacity: 0;
-      visibility: hidden;
-      transition: opacity 0.4s ease, transform 0.4s ease;
-      transform: scale(1.05);
+    .page.active{opacity:1;visibility:visible;transform:scale(1);}
+    .button-style{
+      background:#87CEFA;border:2px solid #5bb0e8;color:#fff;
+      font-weight:700;padding:14px 32px;font-size:1.2rem;border-radius:16px;
+      box-shadow:0 4px 6px rgba(0,0,0,0.1);
+      cursor:pointer;transition:transform .2s ease,box-shadow .2s ease;
     }
-    .page.active { opacity: 1; visibility: visible; transform: scale(1); }
+    .button-style:hover{transform:scale(1.1);box-shadow:0 8px 16px rgba(0,0,0,.2);}
+    #noBtn{background:#FFC0CB;border-color:#FF81A7;color:#4A4A4A;}
+    .backBtn{background:#87CEFA;border-color:#5bb0e8;margin-top:auto;margin-bottom:1.5rem;}
 
-    .button-style {
-      background-color: #87CEFA;
-      border: 2px solid #5bb0e8;
-      color: #fff;
-      font-weight: 700;
-      padding: 14px 32px;
-      font-size: 1.2rem;
-      border-radius: 16px;
-      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-      transition: transform 0.2s ease, box-shadow 0.2s ease;
-      cursor: pointer;
+    /* Flower + video layout */
+    #flowerVideoContainer{
+      display:flex;
+      flex-direction:row;             /* side by side */
+      align-items:center;
+      justify-content:center;
+      width:100%;
+      max-width:90%;
+      gap:2rem;
+      transition:all .7s ease-in-out;
     }
-    .button-style:hover {
-      transform: scale(1.1);
-      box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+    #flowerWrapper,#videoWrapper{
+      transition:all .7s ease-in-out;
     }
-    #noBtn {
-      background-color: #FFC0CB;
-      border-color: #FF81A7;
-      color: #4A4A4A;
+    #flowerWrapper{
+      flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;
+      max-width:50%;
     }
-    .backBtn {
-      background-color: #87CEFA;
-      border-color: #5bb0e8;
-      margin-top: auto;            /* push down */
-      margin-bottom: 1.5rem;       /* spacing from bottom */
+    #videoWrapper{
+      flex:1;display:flex;align-items:center;justify-content:center;
+      max-width:0;overflow:hidden;
     }
-    /* Flower + video sizing */
-    #flowerImage {
-      max-width: 70%;
-      max-height: 65vh;
-    }
-    #flowerVideo {
-      max-width: 70%;
-      max-height: 65vh;
-    }
-    /* Page2 option buttons hover */
-    #envelopeBtn:hover,
-    #filmBtn:hover,
-    #flowerBtn:hover {
-      transform: scale(1.08);
-      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
-    }
+    #flowerImage{max-width:100%;max-height:65vh;cursor:pointer;transition:transform .3s;}
+    #flowerImage:hover{transform:scale(1.05);}
+    #flowerVideo{max-width:100%;max-height:65vh;border-radius:16px;}
+    #tapMe{margin-bottom:1rem;}
   </style>
 </head>
 <body>
@@ -111,36 +87,35 @@
     <p class="text-xl text-gray-600">I hope you like it mwehe</p>
     <p class="text-lg text-gray-500">choose a button :3</p>
     <div class="flex flex-col sm:flex-row items-center justify-center gap-6 pt-4">
-      <button id="envelopeBtn" class="w-44 h-48 flex flex-col items-center justify-center p-4 border-2 border-pink-200 rounded-2xl bg-pink-50 transition-all">
+      <button id="envelopeBtn" class="w-44 h-48 flex flex-col items-center justify-center p-4 border-2 border-pink-200 rounded-2xl bg-pink-50 transition-all hover:scale-105">
         <img src="2.png" alt="An envelope" class="w-28 h-28 object-contain">
       </button>
-      <button id="filmBtn" class="w-44 h-48 flex flex-col items-center justify-center p-4 border-2 border-blue-200 rounded-2xl bg-blue-50 transition-all">
+      <button id="filmBtn" class="w-44 h-48 flex flex-col items-center justify-center p-4 border-2 border-blue-200 rounded-2xl bg-blue-50 transition-all hover:scale-105">
         <img src="4.png" alt="A film strip" class="w-28 h-28 object-contain">
       </button>
-      <button id="flowerBtn" class="w-44 h-48 flex flex-col items-center justify-center p-4 border-2 border-amber-200 rounded-2xl bg-amber-50 transition-all">
+      <button id="flowerBtn" class="w-44 h-48 flex flex-col items-center justify-center p-4 border-2 border-amber-200 rounded-2xl bg-amber-50 transition-all hover:scale-105">
         <img src="5.png" alt="A flower bouquet" class="w-28 h-28 object-contain">
       </button>
     </div>
   </div>
 
-  <!-- Page 3 -->
+  <!-- Page 3 (flower + video) -->
   <div id="page3" class="page">
-    <div id="flowerVideoContainer" class="flex flex-col items-center justify-center w-full max-w-5xl gap-6">
-      <!-- Tap text ABOVE -->
-      <div id="tapMe" class="hidden text-center">
-        <svg class="w-8 h-8 mx-auto text-gray-500 animate-bounce" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path>
-        </svg>
-        <p class="text-lg text-gray-600">tap the flower!</p>
+    <div id="flowerVideoContainer">
+      <!-- Flower -->
+      <div id="flowerWrapper">
+        <div id="tapMe" class="hidden text-center">
+          <svg class="w-8 h-8 mx-auto text-gray-500 animate-bounce" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path>
+          </svg>
+          <p class="text-lg text-gray-600">tap the flower!</p>
+        </div>
+        <img id="flowerImage" src="3.png" alt="A bouquet of sunflowers">
       </div>
-
-      <div id="flowerWrapper" class="flex flex-col items-center justify-center transition-all duration-700 ease-in-out w-full">
-        <img id="flowerImage" src="3.png" alt="A bouquet of sunflowers" class="rounded-lg cursor-pointer hover:scale-105 transition-transform">
-      </div>
-      <div id="videoWrapper" class="flex items-center justify-center transition-all duration-700 ease-in-out w-0 overflow-hidden">
-        <video id="flowerVideo" class="rounded-lg" controls playsinline>
+      <!-- Video -->
+      <div id="videoWrapper">
+        <video id="flowerVideo" controls playsinline>
           <source src="foryou.mp4" type="video/mp4">
-          Your browser does not support the video tag.
         </video>
       </div>
     </div>
@@ -165,15 +140,6 @@
         <img src="https://placehold.co/120x140/a2d2ff/ffffff?text=Photo" class="rounded-md" alt="placeholder">
         <img src="https://placehold.co/120x140/a2d2ff/ffffff?text=Photo" class="rounded-md" alt="placeholder">
         <img src="https://placehold.co/120x140/a2d2ff/ffffff?text=Photo" class="rounded-md" alt="placeholder">
-        <img src="https://placehold.co/120x140/a2d2ff/ffffff?text=Photo" class="rounded-md" alt="placeholder">
-        <div class="flex flex-col items-center justify-center space-y-2 py-2">
-          <img src="https://placehold.co/100x120/bde0fe/ffffff?text=Strip" class="border-4 border-white rounded-md" alt="placeholder">
-          <img src="https://placehold.co/100x120/bde0fe/ffffff?text=Strip" class="border-4 border-white rounded-md" alt="placeholder">
-        </div>
-        <img src="https://placehold.co/120x140/a2d2ff/ffffff?text=Photo" class="rounded-md" alt="placeholder">
-        <img src="https://placehold.co/120x140/a2d2ff/ffffff?text=Photo" class="rounded-md" alt="placeholder">
-        <img src="https://placehold.co/120x140/a2d2ff/ffffff?text=Photo" class="rounded-md" alt="placeholder">
-        <img src="https://placehold.co/120x140/a2d2ff/ffffff?text=Photo" class="rounded-md" alt="placeholder">
       </div>
     </div>
     <button class="backBtn button-style">BACK</button>
@@ -188,89 +154,75 @@
 </div>
 
 <script>
-  const pages = document.querySelectorAll('.page');
-  const yesBtn = document.getElementById('yesBtn');
-  const noBtn = document.getElementById('noBtn');
-  const tryAgainBtn = document.getElementById('tryAgainBtn');
-  const envelopeBtn = document.getElementById('envelopeBtn');
-  const filmBtn = document.getElementById('filmBtn');
-  const flowerBtn = document.getElementById('flowerBtn');
-  const backBtns = document.querySelectorAll('.backBtn');
+  const pages=document.querySelectorAll('.page');
+  const yesBtn=document.getElementById('yesBtn');
+  const noBtn=document.getElementById('noBtn');
+  const tryAgainBtn=document.getElementById('tryAgainBtn');
+  const envelopeBtn=document.getElementById('envelopeBtn');
+  const filmBtn=document.getElementById('filmBtn');
+  const flowerBtn=document.getElementById('flowerBtn');
+  const backBtns=document.querySelectorAll('.backBtn');
 
-  const generateMessageBtn = document.getElementById('generateMessageBtn');
-  const messageContainer = document.getElementById('messageContainer');
-  const messageLoader = document.getElementById('messageLoader');
+  const generateMessageBtn=document.getElementById('generateMessageBtn');
+  const messageContainer=document.getElementById('messageContainer');
+  const messageLoader=document.getElementById('messageLoader');
 
-  const flowerImage = document.getElementById('flowerImage');
-  const tapMe = document.getElementById('tapMe');
-  const flowerWrapper = document.getElementById('flowerWrapper');
-  const videoWrapper = document.getElementById('videoWrapper');
-  const flowerVideo = document.getElementById('flowerVideo');
+  const flowerImage=document.getElementById('flowerImage');
+  const tapMe=document.getElementById('tapMe');
+  const flowerWrapper=document.getElementById('flowerWrapper');
+  const videoWrapper=document.getElementById('videoWrapper');
+  const flowerVideo=document.getElementById('flowerVideo');
 
-  function showPage(pageId) {
-    pages.forEach(page => page.classList.toggle('active', page.id === pageId));
+  function showPage(id){pages.forEach(p=>p.classList.toggle('active',p.id===id));}
+
+  function resetFlowerPage(){
+    flowerVideo.pause();flowerVideo.currentTime=0;
+    flowerWrapper.style.maxWidth='50%';
+    videoWrapper.style.maxWidth='0';
+    tapMe.classList.add('hidden');
   }
 
-  async function generateMessage() {
-    generateMessageBtn.disabled = true;
-    messageLoader.classList.remove('hidden');
-    messageContainer.classList.add('hidden');
-    messageContainer.textContent = '';
+  yesBtn.onclick=()=>showPage('page2');
+  noBtn.onclick=()=>showPage('page6');
+  tryAgainBtn.onclick=()=>showPage('page1');
+  envelopeBtn.onclick=()=>showPage('page4');
+  filmBtn.onclick=()=>showPage('page5');
 
-    try {
-      // Placeholder text if API is not set
-      messageContainer.textContent = "You're the sweetest, Lil monkeh! Mwehe!";
-    } catch {
-      messageContainer.textContent = "You're amazing! Mwehe.";
-    } finally {
+  flowerBtn.onclick=()=>{
+    showPage('page3');
+    setTimeout(()=>tapMe.classList.remove('hidden'),800);
+  };
+
+  flowerImage.onclick=()=>{
+    tapMe.classList.add('hidden');
+    flowerWrapper.style.maxWidth='50%';     // stay left
+    videoWrapper.style.maxWidth='50%';      // slide in right
+    setTimeout(()=>{
+      flowerVideo.currentTime=0;
+      flowerVideo.play().catch(()=>{});
+    },500);
+  };
+
+  generateMessageBtn.onclick=()=>{
+    generateMessageBtn.disabled=true;
+    messageLoader.classList.remove('hidden');
+    setTimeout(()=>{
       messageLoader.classList.add('hidden');
+      messageContainer.textContent="You're the sweetest, Lil monkeh! Mwehe!";
       messageContainer.classList.remove('hidden');
       generateMessageBtn.classList.add('hidden');
-    }
-  }
+    },800);
+  };
 
-  function resetFlowerPage() {
-    flowerVideo.pause();
-    flowerVideo.currentTime = 0;
-    flowerWrapper.classList.remove('w-1/2');
-    flowerWrapper.classList.add('w-full');
-    videoWrapper.classList.remove('w-1/2');
-    videoWrapper.classList.add('w-0');
-    tapMe.classList.add('hidden');
-  }
-
-  yesBtn.addEventListener('click', () => showPage('page2'));
-  noBtn.addEventListener('click', () => showPage('page6'));
-  tryAgainBtn.addEventListener('click', () => showPage('page1'));
-  envelopeBtn.addEventListener('click', () => showPage('page4'));
-  filmBtn.addEventListener('click', () => showPage('page5'));
-
-  flowerBtn.addEventListener('click', () => {
-    showPage('page3');
-    setTimeout(() => tapMe.classList.remove('hidden'), 800);
-  });
-
-  flowerImage.addEventListener('click', () => {
-    tapMe.classList.add('hidden');
-    flowerWrapper.classList.replace('w-full', 'w-1/2');
-    videoWrapper.classList.replace('w-0', 'w-1/2');
-    setTimeout(() => {
-      flowerVideo.currentTime = 0;
-      flowerVideo.play().catch(() => {});
-    }, 500);
-  });
-
-  generateMessageBtn.addEventListener('click', generateMessage);
-
-  backBtns.forEach(btn => {
-    btn.addEventListener('click', () => {
+  backBtns.forEach(btn=>{
+    btn.onclick=()=>{
       messageContainer.classList.add('hidden');
-      messageContainer.textContent = '';
+      messageContainer.textContent='';
       generateMessageBtn.classList.remove('hidden');
-      generateMessageBtn.disabled = false;
-      if (btn.closest('#page3')) resetFlowerPage();
+      generateMessageBtn.disabled=false;
+      if(btn.closest('#page3')) resetFlowerPage();
       showPage('page2');
-    });
+    };
   });
 
   showPage('page1');
