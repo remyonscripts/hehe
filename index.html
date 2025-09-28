@@ -39,46 +39,19 @@
   #noBtn{background:#FFC0CB;border-color:#FF81A7;color:#4A4A4A;}
   .backBtn{background:#87CEFA;border-color:#5bb0e8;margin-top:auto;margin-bottom:1.5rem;}
 
-  /* Default layout: side by side */
-  #flowerVideoContainer{
-    display:flex;
-    flex-direction:row;
-    align-items:center;
-    justify-content:center;
-    width:100%;
-    max-width:90%;
-    gap:2rem;
-    transition:all .7s ease-in-out;
-  }
-  #flowerWrapper,#videoWrapper{
-    transition:all .7s ease-in-out;
-  }
-  #flowerWrapper{
-    flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;
-    max-width:50%;
-  }
-  #videoWrapper{
-    flex:1;display:flex;align-items:center;justify-content:center;
-    max-width:0;max-height:0;overflow:hidden;
-  }
+  #flowerVideoContainer{display:flex;flex-direction:row;align-items:center;justify-content:center;width:100%;max-width:90%;gap:2rem;transition:all .7s ease-in-out;}
+  #flowerWrapper,#videoWrapper{transition:all .7s ease-in-out;}
+  #flowerWrapper{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;max-width:50%;}
+  #videoWrapper{flex:1;display:flex;align-items:center;justify-content:center;max-width:0;max-height:0;overflow:hidden;}
   #flowerImage{max-width:100%;max-height:55vh;cursor:pointer;transition:transform .3s;}
   #flowerImage:hover{transform:scale(1.05);}
   #flowerVideo{max-width:100%;max-height:65vh;border-radius:16px;}
   #tapMe{margin-bottom:1rem;}
   #flowerCaption{margin-top:0.75rem;font-size:1rem;color:#666;max-width:80%;}
-
-  /* Portrait mode: stack vertically */
   @media (orientation: portrait) {
-    #flowerVideoContainer {
-      flex-direction: column;
-    }
-    #flowerWrapper {
-      max-width:100%;
-    }
-    #videoWrapper {
-      max-width:100%;
-      max-height:0;
-    }
+    #flowerVideoContainer {flex-direction: column;}
+    #flowerWrapper {max-width:100%;}
+    #videoWrapper {max-width:100%;max-height:0;}
   }
 </style>
 </head>
@@ -111,7 +84,7 @@
     </div>
   </div>
 
-  <!-- Page 3: Flower + Video -->
+  <!-- Page 3 -->
   <div id="page3" class="page">
     <div id="flowerVideoContainer">
       <div id="flowerWrapper">
@@ -122,7 +95,6 @@
           <p class="text-lg text-gray-600">tap the flower!</p>
         </div>
         <img id="flowerImage" src="3.png" alt="A bouquet of sunflowers">
-        <!-- 🌻 New caption here -->
         <p id="flowerCaption">
           Your favorite hehe. Couldn't get them irl, so I just made one here for you :3
         </p>
@@ -155,6 +127,14 @@
   </div>
 </div>
 
+<!-- Hidden audio elements -->
+<audio id="music1" preload="auto">
+  <source src="music1.mp3" type="audio/mpeg">
+</audio>
+<audio id="music2" preload="auto">
+  <source src="music2.mp3" type="audio/mpeg">
+</audio>
+
 <script>
   const pages=document.querySelectorAll('.page');
   const yesBtn=document.getElementById('yesBtn');
@@ -174,6 +154,19 @@
   const videoWrapper=document.getElementById('videoWrapper');
   const flowerVideo=document.getElementById('flowerVideo');
 
+  // music
+  const music1=document.getElementById('music1');
+  const music2=document.getElementById('music2');
+
+  // 🔊 Set volume to 50% for both tracks
+  music1.volume = 0.5;
+  music2.volume = 0.5;
+
+  // Play second track after first ends
+  music1.addEventListener('ended', () => {
+    music2.play().catch(()=>{});
+  });
+
   function showPage(id){pages.forEach(p=>p.classList.toggle('active',p.id===id));}
 
   function resetFlowerPage(){
@@ -187,7 +180,14 @@
   yesBtn.onclick=()=>showPage('page2');
   noBtn.onclick=()=>showPage('page6');
   tryAgainBtn.onclick=()=>showPage('page1');
-  envelopeBtn.onclick=()=>showPage('page4');
+
+  // Letter button → go to page4 and start music
+  envelopeBtn.onclick=()=>{
+    showPage('page4');
+    music1.currentTime=0;
+    music2.currentTime=0;
+    music1.play().catch(()=>{});
+  };
 
   flowerBtn.onclick=()=>{
     showPage('page3');
@@ -198,9 +198,9 @@
     tapMe.classList.add('hidden');
     const portrait = window.matchMedia("(orientation: portrait)").matches;
     if (portrait) {
-      videoWrapper.style.maxHeight='50%';  // slide downward on phones
+      videoWrapper.style.maxHeight='50%';
     } else {
-      videoWrapper.style.maxWidth='50%';   // side slide on desktop/landscape
+      videoWrapper.style.maxWidth='50%';
     }
     setTimeout(()=>{
       flowerVideo.currentTime=0;
@@ -234,4 +234,3 @@
 </script>
 </body>
 </html>
-
