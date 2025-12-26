@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>for you my baby <3</title>
 <script src="https://cdn.tailwindcss.com"></script>
-<link href="https://fonts.googleapis.com/css2?family=Gaegu:wght@400;700&family=Homemade+Apple&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Gaegu:wght@400;700&family=Fredoka:wght@400;600&display=swap" rel="stylesheet">
 <style>
   html,body{
     height:100%;
@@ -21,7 +21,6 @@
     font-family:'Gaegu',cursive;
   }
 
-  /* ✅ White container */
   #app{
     width:90vw;
     height:90vh;
@@ -33,12 +32,12 @@
     padding:clamp(1rem,2vw,2rem);
   }
 
-  /* Pages */
   .page{
     position:absolute; inset:0;
     display:flex; flex-direction:column;
     align-items:center; justify-content:center;
-    text-align:center; padding:clamp(1rem,2vw,2rem);
+    text-align:center;
+    padding:clamp(1rem,2vw,2rem);
     gap:clamp(1rem,2vw,2rem);
     opacity:0; visibility:hidden;
     transform:scale(1.05);
@@ -46,7 +45,6 @@
   }
   .page.active{opacity:1;visibility:visible;transform:scale(1);}
 
-  /* ---------- Responsive sizing ---------- */
   .page h1,
   .page h2 {
     font-size: clamp(1.5rem, 3vw, 2.5rem);
@@ -59,7 +57,6 @@
     height: auto;
   }
 
-  /* Buttons */
   .button-style{
     background:#87CEFA; border:2px solid #5bb0e8; color:#fff;
     font-weight:700;
@@ -73,9 +70,9 @@
   #noBtn{background:#FFC0CB;border-color:#FF81A7;color:#4A4A4A;}
   .backBtn{background:#87CEFA;border-color:#5bb0e8;}
 
-  /* Flower + video layout */
   #flowerVideoContainer{
-    display:flex; flex-direction:row; flex-wrap:wrap;
+    display:flex;
+    flex-direction:row; flex-wrap:wrap;
     align-items:center; justify-content:center;
     width:100%; height:100%;
     gap:clamp(1rem,2vw,2rem);
@@ -83,14 +80,16 @@
   }
   #flowerWrapper,#videoWrapper{
     transition:all .7s ease-in-out;
-    display:flex; flex-direction:column;
+    display:flex;
+    flex-direction:column;
     align-items:center; justify-content:center;
   }
   #flowerWrapper{flex:1; max-width:50%;}
   #videoWrapper{flex:1; max-width:0; overflow:hidden;}
   #flowerImage{
     max-width:100%; max-height:60vh;
-    cursor:pointer; transition:transform .3s;
+    cursor:pointer;
+    transition:transform .3s;
   }
   #flowerImage:hover{transform:scale(1.05);}
   #flowerVideo{max-width:100%; max-height:60vh; border-radius:16px;}
@@ -101,10 +100,10 @@
     color:#555;
   }
 
-  /* Notebook letter */
+  /* ✅ Updated Font Family and size for better readability */
   #messageContainer{
-    font-family:'Homemade Apple',cursive;
-    font-size:clamp(1rem,1.8vw,1.4rem);
+    font-family:'Fredoka', sans-serif;
+    font-size:clamp(1.1rem, 2vw, 1.5rem);
     line-height:1.8;
     white-space:pre-wrap;
     text-align:left;
@@ -118,7 +117,7 @@
     opacity:0;
     transition:opacity 1s ease;
   }
-  /* Lines fade in */
+
   #messageContainer p {
     opacity:0;
     transform:translateY(5px);
@@ -128,7 +127,6 @@
   @keyframes fadeLine {
     to {opacity:1; transform:translateY(0);}
   }
-  /* Handwriting inside line */
   #messageContainer span {
     display:inline-block;
     clip-path: inset(0 100% 0 0);
@@ -139,7 +137,6 @@
     to   {clip-path: inset(0 0 0 0);}
   }
 
-  /* ✅ Back button inside container, top-left with hover float */
   #insideBack {
     position: absolute;
     top: 1rem;
@@ -165,7 +162,6 @@
 <body>
 <div id="app">
 
-  <!-- Page 1 -->
   <div id="page1" class="page active">
     <img src="1.png" alt="Cute character">
     <h1 class="font-bold text-gray-700">hi baby :3</h1>
@@ -176,7 +172,6 @@
     </div>
   </div>
 
-  <!-- Page 2 -->
   <div id="page2" class="page">
     <h1 class="font-bold text-gray-700">THESE ARE FOR YOU!</h1>
     <p class="text-gray-600">I hope you like it mwehe</p>
@@ -190,7 +185,6 @@
     </div>
   </div>
 
-  <!-- Page 3 Flower + Video -->
   <div id="page3" class="page">
     <div id="flowerVideoContainer">
       <div id="flowerWrapper">
@@ -211,21 +205,18 @@
     </div>
   </div>
 
-  <!-- Page 4 Letter -->
   <div id="page4" class="page flex-col">
     <h2 class="font-bold text-gray-700">to my baby, my loml, my forever</h2>
     <div id="messageContainer" class="hidden"></div>
     <button id="generateMessageBtn" class="button-style mt-4">✨ Read your message</button>
   </div>
 
-  <!-- Page 6 -->
   <div id="page6" class="page">
     <img src="6.png" alt="Crying character" class="w-40 sm:w-56 object-cover rounded-full">
     <p class="text-gray-600">I promise you'll like it</p>
     <button id="tryAgainBtn" class="button-style">TRY AGAIN</button>
   </div>
 
-  <!-- ✅ Back button (only for Page 3 + 4) -->
   <div id="insideBack">
     <button class="button-style backBtn">BACK</button>
   </div>
@@ -235,7 +226,6 @@
 const pages=document.querySelectorAll('.page');
 function showPage(id){
   pages.forEach(p=>p.classList.toggle('active',p.id===id));
-  // ✅ Show back button only for page3 & page4
   if(id==="page3"||id==="page4"){
     insideBack.style.display="block";
   } else {
@@ -257,13 +247,29 @@ const yesBtn=document.getElementById('yesBtn'),
       messageContainer=document.getElementById('messageContainer'),
       insideBack=document.getElementById('insideBack');
 
-const letter=`Aloo sayang! Happy 1 month :3 It's honestly so crazy to think it’s only been a month since we've been together and 2 since I met you HAHAHHA I swear it feels like it’s been years since I’ve been with you. Ig we js got that connection wkwk like we were always meant to find each other. From playing VD or wtv we've played to finally calling you mine XD
+const letter=`Aloo sayang! Happy 1 month :3 It's honestly so crazy to think it’s only been a month since we've been together and 2 since I met you HAHAHHA I swear it feels like it’s been years since I’ve been with you.
+Ig we js got that connection wkwk like we were always meant to find each other.
+From playing VD or wtv we've played to finally calling you mine XD
 
-Yk sayang, I want u to know that I love you so much more than I can probably put into words. Please always remember that you can run to me for anything. No matter what u’re going through, you can tell me everything. If u’re having a bad day, you can just cry the shit out or vent about wtv is bothering u, and I promise I will be right here to listen. I’m your safe place, always and forever. U never gotta face anything alone cs am always wit u.
+Yk sayang, I want u to know that I love you so much more than I can probably put into words.
+Please always remember that you can run to me for anything.
+No matter what u’re going through, you can tell me everything.
+If u’re having a bad day, you can just cry the shit out or vent about wtv is bothering u, and I promise I will be right here to listen.
+I’m your safe place, always and forever. U never gotta face anything alone cs am always wit u.
+We’ve already had our fair share of ups and downs, but ngl, I love how neither of us gives up.
+We stronk tgt. I love that we keep choosing each other every time things get/feel hard.
+U've been so patient wit me, and I promise to keep choosing you every single day.
+Makaci sudah bersabar sama aku dan selalu ada buat aku nd I am certain that there isn’t a single universe or lifetime where I don’t love you.
+I love you in every universe, in every lifetime, past, present, and future.
+Wtv version of me exists in any timeline, am still yours.
+Even if the stars were different or we were different people, my heart would still find its way back to you.
+You are my constant, my baby, and my most favorite person in every worlddddddddddddddd
 
-We’ve already had our fair share of ups and downs, but ngl, I love how neither of us gives up. We stronk tgt. I love that we keep choosing each other every time things get/feel hard. U've been so patient wit me, and I promise to keep choosing you every single day. Makaci sudah bersabar sama aku dan selalu ada buat aku nd I am certain that there isn’t a single universe or lifetime where I don’t love you. I love you in every universe, in every lifetime, past, present, and future. Wtv version of me exists in any timeline, am still yours. Even if the stars were different or we were different people, my heart would still find its way back to you. You are my constant, my baby, and my most favorite person in every worlddddddddddddddd
-
-Am going to love you forever and everrrrrrrrrr because my love for you is infinityyyyyyyy. Aku janji akan selalu ada untukmu. Tenchu for the best month of my life, babyy. Can’t wait for all the months and years ahead of us :3 TBH am speechless af I dont wanna sound so faking redundant repeating the same words fearing that you wont like it anymore or wont listen to what I say anymore bc it sounds reused but its all true and what I really feel abt you. Bc no words could really describe how grateful and how much I love you ;-; Sayang, aku siap memberikan segalanya dan menjadi milikmu sepenuhnya. Aku cinta bgt sama kamu, lebih dari apa pun.`;
+Am going to love you forever and everrrrrrrrrr because my love for you is infinityyyyyyyy.
+Aku janji akan selalu ada untukmu. Tenchu for the best month of my life, babyy.
+Can’t wait for all the months and years ahead of us :3 TBH am speechless af I dont wanna sound so faking redundant repeating the same words fearing that you wont like it anymore or wont listen to what I say anymore bc it sounds reused but its all true and what I really feel abt you.
+Bc no words could really describe how grateful and how much I love you ;-;
+Sayang, aku siap memberikan segalanya dan menjadi milikmu sepenuhnya. Aku cinta bgt sama kamu, lebih dari apa pun.`;
 
 const audio1=new Audio('whoknow.mp3'),
       audio2=new Audio('mylove.mp3');
@@ -289,13 +295,11 @@ flowerImage.onclick=()=>{
   setTimeout(()=>{flowerVideo.currentTime=0; flowerVideo.play().catch(()=>{});},500);
 };
 
-// Smooth message + music sync
 generateMessageBtn.onclick=()=>{
   generateMessageBtn.classList.add('hidden');
   messageContainer.classList.remove('hidden');
   messageContainer.style.opacity="1";
 
-  // split into lines
   const lines=letter.split("\n");
   messageContainer.innerHTML="";
   lines.forEach((line,i)=>{
@@ -308,8 +312,6 @@ generateMessageBtn.onclick=()=>{
     span.style.animationDelay=`${(i*0.5)+0.5}s`;
     messageContainer.appendChild(p);
   });
-
-  // start music after first line begins
   setTimeout(()=>{
     audio1.currentTime=0;
     audio1.play();
@@ -319,7 +321,6 @@ generateMessageBtn.onclick=()=>{
 insideBack.onclick=()=>{
   showPage('page2');
   resetFlowerPage();
-  // reset letter + music
   audio1.pause(); audio2.pause();
   audio1.currentTime=0; audio2.currentTime=0;
   messageContainer.classList.add('hidden');
@@ -329,15 +330,3 @@ insideBack.onclick=()=>{
 </script>
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
